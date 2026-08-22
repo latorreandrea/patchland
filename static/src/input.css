@@ -55,4 +55,12 @@
   .section-title {
     @apply font-display text-3xl font-semibold tracking-wide text-forest-900;
   }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-brass-600 sm:tracking-[0.35em];
+  }
+
+  .icon-badge {
+    @apply flex size-10 shrink-0 items-center justify-center rounded-full border border-brass-300/70 bg-brass-100/70 text-forest-800;
+  }
 }

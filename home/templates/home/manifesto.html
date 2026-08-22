@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}The Manifesto — Patchland{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="relative overflow-hidden bg-forest-900 text-parchment-100">
+  <div class="pointer-events-none absolute inset-0 opacity-40"
+       style="background-image: radial-gradient(circle at 1px 1px, rgba(253, 251, 247, 0.12) 1px, transparent 0); background-size: 26px 26px;"
+       aria-hidden="true"></div>
+  <div class="content-container relative py-20 text-center sm:py-28">
+    <span class="icon-badge mx-auto border-brass-400/40 bg-brass-400/10 text-brass-300">
+      {% include 'partials/icon.html' with name='globe-europe-africa' class='size-6' %}
+    </span>
+    <p class="mb-3 mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-brass-300 sm:tracking-[0.35em]">Res Publica Mundi</p>
+    <h1 class="font-display text-5xl font-semibold leading-tight sm:text-7xl">The Manifesto</h1>
+    <p class="mx-auto mt-5 max-w-2xl text-lg text-parchment-100/85">
+      A distributed, imaginary nation built one Patch at a time — purely
+      symbolic, purely recreational, with no legal, political or territorial claims.
+    </p>
+    <p class="mt-8 font-display text-2xl italic text-brass-300">“One Patch. One Citizen. One World.”</p>
+  </div>
+</section>
+
+<!-- Vision -->
+<section class="content-container max-w-3xl py-16 sm:py-20">
+  <p class="eyebrow">Vision</p>
+  <h2 class="section-title mt-3">Why Patchland exists</h2>
+  <p class="mt-6 text-lg leading-relaxed text-ink-soft">
+    Patchland is a collaborative world-building project in which people voluntarily
+    dedicate a small portion of a place they legitimately use — a garden, a yard,
+    a balcony — as a <strong class="font-semibold text-forest-800">Patch</strong>.
+  </p>
+  <p class="mt-4 leading-relaxed text-ink-soft">
+    Every Patch is a tiny, real piece of the world that chooses to belong to a
+    shared imaginary nation. The whole country is the sum of its squares:
+    <span class="font-display italic text-forest-800">Ex multis, una terra</span> —
+    out of many, one land.
+  </p>
+  <blockquote class="mt-8 border-l-4 border-brass-400 bg-parchment-200/60 p-6 font-display text-xl italic leading-relaxed text-forest-900">
+    A nation that grows one square meter at a time, wherever its citizens live —
+    no borders, no claims, just stories.
+  </blockquote>
+</section>
+
+<!-- Core Principles -->
+<section class="bg-parchment-200/70 py-16 sm:py-20">
+  <div class="content-container">
+    <p class="eyebrow">Core Principles</p>
+    <h2 class="section-title mt-3">What we believe</h2>
+    <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div class="card-parchment rounded-xl p-6 transition hover:-translate-y-1 hover:shadow-md">
+        <span class="icon-badge">{% include 'partials/icon.html' with name='plus-circle' class='size-5' %}</span>
+        <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">One Patch at a time</h3>
+        <p class="mt-2 text-ink-soft">The nation grows patch by patch, never by decree.</p>
+      </div>
+      <div class="card-parchment rounded-xl p-6 transition hover:-translate-y-1 hover:shadow-md">
+        <span class="icon-badge">{% include 'partials/icon.html' with name='book-open' class='size-5' %}</span>
+        <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Every Patch has a story</h3>
+        <p class="mt-2 text-ink-soft">Even a single sentence turns a square meter into a memory.</p>
+      </div>
+      <div class="card-parchment rounded-xl p-6 transition hover:-translate-y-1 hover:shadow-md">
+        <span class="icon-badge">{% include 'partials/icon.html' with name='user-group' class='size-5' %}</span>
+        <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Every citizen contributes equally</h3>
+        <p class="mt-2 text-ink-soft">One Patch, one Custodian, one equal voice.</p>
+      </div>
+      <div class="card-parchment rounded-xl p-6 transition hover:-translate-y-1 hover:shadow-md">
+        <span class="icon-badge">{% include 'partials/icon.html' with name='globe-alt' class='size-5' %}</span>
+        <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Distributed across the world</h3>
+        <p class="mt-2 text-ink-soft">There is no centre: the territory lives wherever its citizens do.</p>
+      </div>
+      <div class="card-parchment rounded-xl p-6 transition hover:-translate-y-1 hover:shadow-md">
+        <span class="icon-badge">{% include 'partials/icon.html' with name='heart' class='size-5' %}</span>
+        <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Community before territory</h3>
+        <p class="mt-2 text-ink-soft">People and places matter more than lines on a map.</p>
+      </div>
+      <div class="card-parchment rounded-xl p-6 transition hover:-translate-y-1 hover:shadow-md">
+        <span class="icon-badge">{% include 'partials/icon.html' with name='check-badge' class='size-5' %}</span>
+        <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">An official Seal for every Patch</h3>
+        <p class="mt-2 text-ink-soft">Unique, numbered and forever linked to a single Patch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Objectives -->
+<section class="content-container py-16 sm:py-20">
+  <p class="eyebrow">Objectives</p>
+  <h2 class="section-title mt-3">What we are building together</h2>
+  <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <div class="card-parchment rounded-xl p-6 transition hover:-translate-y-1 hover:shadow-md">
+      <span class="icon-badge">{% include 'partials/icon.html' with name='flag' class='size-5' %}</span>
+      <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">A distributed nation</h3>
+      <p class="mt-2 text-sm text-ink-soft">Build the world's largest distributed symbolic nation.</p>
+    </div>
+    <div class="card-parchment rounded-xl p-6 transition hover:-translate-y-1 hover:shadow-md">
+      <span class="icon-badge">{% include 'partials/icon.html' with name='heart' class='size-5' %}</span>
+      <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Connect people</h3>
+      <p class="mt-2 text-sm text-ink-soft">Bring people together through meaningful places.</p>
+    </div>
+    <div class="card-parchment rounded-xl p-6 transition hover:-translate-y-1 hover:shadow-md">
+      <span class="icon-badge">{% include 'partials/icon.html' with name='paper-airplane' class='size-5' %}</span>
+      <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Exploration &amp; tourism</h3>
+      <p class="mt-2 text-sm text-ink-soft">Encourage travel between Patchland citizens.</p>
+    </div>
+    <div class="card-parchment rounded-xl p-6 transition hover:-translate-y-1 hover:shadow-md">
+      <span class="icon-badge">{% include 'partials/icon.html' with name='archive-box' class='size-5' %}</span>
+      <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Preserve history</h3>
+      <p class="mt-2 text-sm text-ink-soft">Keep the story of every single Patch alive.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Constitution -->
+<section class="bg-forest-900 py-16 text-parchment-100 sm:py-20">
+  <div class="content-container max-w-3xl text-center">
+    <span class="icon-badge mx-auto border-brass-400/40 bg-brass-400/10 text-brass-300">
+      {% include 'partials/icon.html' with name='scale' class='size-6' %}
+    </span>
+    <p class="mb-3 mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-brass-300 sm:tracking-[0.35em]">Constitution</p>
+    <h2 class="font-display text-3xl font-semibold tracking-wide text-parchment-100 sm:text-4xl">A constitution by the community</h2>
+    <p class="mt-4 leading-relaxed text-parchment-100/80">
+      Patchland is governed by a symbolic constitution, written and maintained
+      by the community. It will grow with the nation — one amendment, one Patch,
+      one citizen at a time.
+    </p>
+  </div>
+</section>
+
+<!-- Slogans -->
+<section class="content-container py-16 text-center sm:py-20">
+  <span class="icon-badge mx-auto">{% include 'partials/icon.html' with name='megaphone' class='size-6' %}</span>
+  <p class="eyebrow mt-4">Slogans</p>
+  <h2 class="section-title mt-3">Words of the nation</h2>
+  <ul class="mx-auto mt-10 max-w-3xl space-y-5 text-left">
+    <li class="card-parchment rounded-xl p-6 font-display text-2xl italic text-forest-900 sm:text-3xl">“One Patch. One Citizen. One World.”</li>
+    <li class="card-parchment rounded-xl p-6 font-display text-2xl italic text-forest-900 sm:text-3xl">“Building the World's Largest Distributed Nation.”</li>
+    <li class="card-parchment rounded-xl p-6 font-display text-2xl italic text-forest-900 sm:text-3xl">“One Square at a Time.”</li>
+    <li class="card-parchment rounded-xl p-6 font-display text-2xl italic text-forest-900 sm:text-3xl">“Every Patch Tells a Story.”</li>
+    <li class="card-parchment rounded-xl p-6 font-display text-2xl italic text-forest-900 sm:text-3xl">“Ex multis, una terra.”</li>
+  </ul>
+</section>
+
+<!-- CTA -->
+<section class="bg-brass-500 py-14">
+  <div class="content-container text-center">
+    <p class="font-display text-3xl font-semibold text-forest-950">Become a citizen</p>
+    <p class="mt-1 text-forest-900/80">Register a Patch and join the nation — one square meter at a time.</p>
+    <a href="{% url 'home:index' %}" class="mt-6 inline-flex items-center gap-2 rounded-md bg-forest-950 px-6 py-3 font-medium text-brass-300 transition-colors hover:bg-forest-900">
+      {% include 'partials/icon.html' with name='home' class='size-5' %}
+      Explore Patchland
+    </a>
+  </div>
+</section>
+{% endblock %}

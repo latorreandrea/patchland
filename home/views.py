@@ -10,6 +10,11 @@ def index(request):
     return render(request, 'home/index.html', {'stats': get_nation_stats()})
 
 
+def manifesto(request):
+    """The Patchland Manifesto (Res Publica Mundi)."""
+    return render(request, 'home/manifesto.html')
+
+
 def healthz(request):
     """Readiness probe for the hosting platform."""
     return JsonResponse({'status': 'ok', 'service': 'patchland'})

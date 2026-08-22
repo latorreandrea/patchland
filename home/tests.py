@@ -9,6 +9,12 @@ class HomePageTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Res Publica Mundi')
 
+    def test_manifesto_returns_200(self):
+        response = self.client.get(reverse('home:manifesto'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'The Manifesto')
+        self.assertContains(response, 'Res Publica Mundi')
+
     def test_healthz_returns_ok(self):
         response = self.client.get(reverse('home:healthz'))
         self.assertEqual(response.status_code, 200)

@@ -1,6 +1,11 @@
 <footer class="mt-16 border-t-4 border-brass-500 bg-forest-900 text-parchment-100/80">
   <div class="content-container flex flex-col items-center justify-between gap-4 py-8 text-sm sm:flex-row">
     <p>© {% now "Y" %} Patchland — <span class="font-display italic text-brass-300">Res Publica Mundi</span></p>
+    <ul class="flex flex-wrap items-center justify-center gap-x-6">
+      <li><a href="{% url 'home:index' %}" class="transition-colors hover:text-brass-300">Home</a></li>
+      <li><a href="{% url 'home:manifesto' %}" class="transition-colors hover:text-brass-300">Manifesto</a></li>
+      <li><a href="{% url 'home:index' %}#statistics" class="transition-colors hover:text-brass-300">Statistics</a></li>
+    </ul>
     <p class="font-display italic">Ex multis, una terra.</p>
   </div>
 </footer>
