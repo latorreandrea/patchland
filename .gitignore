@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Node / Tailwind
+node_modules/
+
+# Django generated / user uploads
+media/
+staticfiles/

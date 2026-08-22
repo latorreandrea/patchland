@@ -1,0 +1,14 @@
+<header class="border-b-4 border-brass-500 bg-forest-900">
+  <nav class="content-container flex flex-wrap items-center justify-between gap-y-2 py-4">
+    <a href="{% url 'home:index' %}" class="flex items-center gap-3">
+      <span class="flex size-9 items-center justify-center rounded-full border-2 border-brass-400 font-display text-lg font-bold text-brass-300">P</span>
+      <span class="hidden font-display text-2xl tracking-wide text-parchment-100 sm:inline">Patchland</span>
+    </a>
+    <ul class="flex min-w-0 flex-wrap items-center justify-end gap-x-4 text-sm font-medium sm:gap-x-6">
+      <li><a href="{% url 'home:index' %}" class="nav-link">Home</a></li>
+      <li><a href="{% url 'home:index' %}#manifesto" class="nav-link">Manifesto</a></li>
+      <li><a href="{% url 'home:index' %}#statistics" class="nav-link">Statistics</a></li>
+      <li><a href="/api/docs" class="nav-link" target="_blank" rel="noopener">API</a></li>
+    </ul>
+  </nav>
+</header>

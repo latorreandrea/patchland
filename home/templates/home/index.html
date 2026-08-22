@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Patchland — One Patch. One Citizen. One World.{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="bg-forest-900 text-parchment-100">
+  <div class="content-container py-20 sm:py-28">
+    <p class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brass-300 sm:tracking-[0.35em]">A distributed, imaginary nation</p>
+    <h1 class="font-display text-5xl font-semibold leading-tight sm:text-6xl">Res Publica Mundi</h1>
+    <p class="mt-5 max-w-2xl text-lg text-parchment-100/85">
+      Patchland is built one Patch at a time: a square meter of real, meaningful
+      space voluntarily dedicated by its Custodian. No borders, no claims — just stories.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a href="#manifesto" class="rounded-md border-2 border-brass-400 px-6 py-3 font-medium text-brass-300 transition-colors hover:bg-brass-500 hover:text-forest-950">Read the manifesto</a>
+      <a href="#statistics" class="rounded-md bg-brass-500 px-6 py-3 font-medium text-forest-950 transition-colors hover:bg-brass-400">Nation statistics</a>
+    </div>
+  </div>
+</section>
+
+<!-- Manifesto -->
+<section id="manifesto" class="content-container py-16">
+  <h2 class="section-title">The Manifesto</h2>
+  <p class="mt-3 max-w-3xl text-ink-soft">A symbolic, recreational and community-first nation distributed across the world.</p>
+  <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div class="card-parchment rounded-lg p-6">
+      <h3 class="font-display text-xl font-semibold text-forest-900">One Patch at a time</h3>
+      <p class="mt-2 text-ink-soft">The nation grows patch by patch, never by decree.</p>
+    </div>
+    <div class="card-parchment rounded-lg p-6">
+      <h3 class="font-display text-xl font-semibold text-forest-900">Every Patch has a story</h3>
+      <p class="mt-2 text-ink-soft">Even a single sentence turns a square meter into a memory.</p>
+    </div>
+    <div class="card-parchment rounded-lg p-6">
+      <h3 class="font-display text-xl font-semibold text-forest-900">Every citizen contributes equally</h3>
+      <p class="mt-2 text-ink-soft">One Patch, one Custodian, one equal voice.</p>
+    </div>
+    <div class="card-parchment rounded-lg p-6">
+      <h3 class="font-display text-xl font-semibold text-forest-900">Distributed across the world</h3>
+      <p class="mt-2 text-ink-soft">There is no centre: the territory lives wherever its citizens do.</p>
+    </div>
+    <div class="card-parchment rounded-lg p-6">
+      <h3 class="font-display text-xl font-semibold text-forest-900">Community before territory</h3>
+      <p class="mt-2 text-ink-soft">People and places matter more than lines on a map.</p>
+    </div>
+    <div class="card-parchment rounded-lg p-6">
+      <h3 class="font-display text-xl font-semibold text-forest-900">An official Seal for every Patch</h3>
+      <p class="mt-2 text-ink-soft">Unique, numbered and forever linked to a single Patch.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Statistics -->
+<section id="statistics" class="content-container py-16">
+  <h2 class="section-title">Nation Statistics</h2>
+  <p class="mt-3 max-w-3xl text-ink-soft">Live figures served by <code class="rounded bg-parchment-200 px-1.5 py-0.5 font-mono text-sm">GET /api/home/stats</code>.</p>
+
+  <div id="nation-stats" class="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
+    <div class="card-parchment rounded-lg p-6 text-center" data-stat="total_area_m2">
+      <p class="font-display text-2xl font-bold text-forest-900 sm:text-3xl"><span data-value>{{ stats.total_area_m2|intcomma }}</span> <span class="text-lg">m²</span></p>
+      <p class="mt-1 text-xs uppercase tracking-widest text-ink-soft">Territory</p>
+    </div>
+    <div class="card-parchment rounded-lg p-6 text-center" data-stat="custodians">
+      <p class="font-display text-2xl font-bold text-forest-900 sm:text-3xl" data-value>{{ stats.custodians|intcomma }}</p>
+      <p class="mt-1 text-xs uppercase tracking-widest text-ink-soft">Custodians</p>
+    </div>
+    <div class="card-parchment rounded-lg p-6 text-center" data-stat="provinces">
+      <p class="font-display text-2xl font-bold text-forest-900 sm:text-3xl" data-value>{{ stats.provinces|intcomma }}</p>
+      <p class="mt-1 text-xs uppercase tracking-widest text-ink-soft">Provinces</p>
+    </div>
+    <div class="card-parchment rounded-lg p-6 text-center" data-stat="total_patches">
+      <p class="font-display text-2xl font-bold text-forest-900 sm:text-3xl" data-value>{{ stats.total_patches|intcomma }}</p>
+      <p class="mt-1 text-xs uppercase tracking-widest text-ink-soft">Patches</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block postloadjs %}
+<script src="{% static 'home/js/stats.js' %}" defer></script>
+{% endblock %}

@@ -1,0 +1,13 @@
+{
+  "name": "patchland",
+  "version": "0.1.0",
+  "description": "Res Publica Mundi — frontend assets (Tailwind CSS standalone CLI)",
+  "private": true,
+  "scripts": {
+    "tailwind:watch": "tailwindcss -i ./static/src/input.css -o ./static/css/tailwind.css --watch",
+    "tailwind:build": "tailwindcss -i ./static/src/input.css -o ./static/css/tailwind.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.19"
+  }
+}
