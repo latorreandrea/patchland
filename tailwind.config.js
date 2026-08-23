@@ -55,6 +55,18 @@ module.exports = {
         display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
         sans: ['"Source Sans 3"', 'system-ui', 'sans-serif'],
       },
+      animation: {
+        'spin-slow': 'spin 20s linear infinite',
+        'spin-slower': 'spin 35s linear infinite',
+        float: 'float 6s ease-in-out infinite',
+        'float-slow': 'float 9s ease-in-out infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-14px)' },
+        },
+      },
     },
   },
   plugins: [],

@@ -17,7 +17,7 @@
   }
 
   body {
-    @apply bg-parchment-100 font-sans text-ink antialiased;
+    @apply bg-parchment-50 font-sans text-ink antialiased;
   }
 
   main {
@@ -62,5 +62,40 @@
 
   .icon-badge {
     @apply flex size-10 shrink-0 items-center justify-center rounded-full border border-brass-300/70 bg-brass-100/70 text-forest-800;
+  }
+
+  .card-paper {
+    @apply relative overflow-hidden border border-brass-300/60 bg-parchment-50 shadow-sm;
+    @apply rounded-tl-3xl rounded-br-3xl rounded-tr-sm rounded-bl-sm;
+  }
+
+  .blob {
+    @apply pointer-events-none absolute rounded-full blur-3xl opacity-20;
+  }
+
+  .btn-brass {
+    @apply inline-flex items-center justify-center gap-2 rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm bg-brass-500 px-6 py-3 font-medium text-forest-950 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:bg-brass-400 hover:shadow-xl;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border-2 border-brass-400 px-6 py-3 font-medium text-brass-300 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:bg-brass-500 hover:text-forest-950 hover:shadow-xl;
+  }
+
+  .btn-ghost-dark {
+    @apply inline-flex items-center justify-center gap-2 rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border-2 border-brass-500 px-6 py-3 font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:bg-brass-500 hover:text-forest-950 hover:shadow-xl;
+  }
+
+  .map-grid {
+    @apply pointer-events-none absolute inset-0 opacity-40;
+    background-image: radial-gradient(circle at 1px 1px, rgba(253, 251, 247, 0.12) 1px, transparent 0);
+    background-size: 26px 26px;
+  }
+
+  .svg-slot {
+    @apply pointer-events-none mx-auto w-full max-w-[420px] animate-float;
+  }
+
+  .svg-slot > svg {
+    @apply h-auto w-full drop-shadow-xl;
   }
 }

@@ -1,11 +1,58 @@
-<footer class="mt-16 border-t-4 border-brass-500 bg-forest-900 text-parchment-100/80">
-  <div class="content-container flex flex-col items-center justify-between gap-4 py-8 text-sm sm:flex-row">
-    <p>© {% now "Y" %} Patchland — <span class="font-display italic text-brass-300">Res Publica Mundi</span></p>
-    <ul class="flex flex-wrap items-center justify-center gap-x-6">
-      <li><a href="{% url 'home:index' %}" class="transition-colors hover:text-brass-300">Home</a></li>
-      <li><a href="{% url 'home:manifesto' %}" class="transition-colors hover:text-brass-300">Manifesto</a></li>
-      <li><a href="{% url 'home:index' %}#statistics" class="transition-colors hover:text-brass-300">Statistics</a></li>
-    </ul>
-    <p class="font-display italic">Ex multis, una terra.</p>
+{% comment %}
+  Patchland — footer.
+  Shaped footer with a diagonal top-left cut, a slowly rotating compass
+  rose and a brass accent divider.
+{% endcomment %}
+<footer class="relative mt-20">
+  <div class="relative overflow-hidden border-t-4 border-brass-500 bg-forest-900 pt-16 text-parchment-100/80 [clip-path:polygon(0_1.5rem,100%_0,100%_100%,0_100%)]">
+    <!-- Decorative blurred blobs -->
+    <div class="blob -left-20 -top-24 size-64 bg-brass-500/20" aria-hidden="true"></div>
+    <div class="blob -bottom-24 -right-16 size-72 bg-forest-500/30" aria-hidden="true"></div>
+
+    <div class="content-container relative grid gap-10 py-12 md:grid-cols-[1.5fr_1fr_1fr]">
+      <!-- Brand & motto -->
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="relative grid size-10 place-items-center" aria-hidden="true">
+            <span class="absolute inset-0 animate-spin-slower rounded-full border border-dashed border-brass-400/70"></span>
+            <span class="font-display text-lg font-bold text-brass-300">P</span>
+          </span>
+          <span class="font-display text-2xl tracking-wide text-parchment-100">Patchland</span>
+        </div>
+        <p class="mt-4 max-w-sm text-sm text-parchment-100/70">
+          A distributed, imaginary nation built one Patch at a time. No borders, no claims — just stories.
+        </p>
+        <p class="mt-4 font-display italic text-brass-300">Ex multis, una terra.</p>
+      </div>
+
+      <!-- Explore links -->
+      <nav aria-label="Footer — explore">
+        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-brass-300">Explore</p>
+        <ul class="mt-4 space-y-2 text-sm">
+          <li><a href="{% url 'home:index' %}" class="transition-colors hover:text-brass-300">Home</a></li>
+          <li><a href="{% url 'home:manifesto' %}" class="transition-colors hover:text-brass-300">Manifesto</a></li>
+          <li><a href="{% url 'home:index' %}#statistics" class="transition-colors hover:text-brass-300">Statistics</a></li>
+          <li><a href="/api/docs" target="_blank" rel="noopener" class="transition-colors hover:text-brass-300">API</a></li>
+        </ul>
+      </nav>
+
+      <!-- Nation links -->
+      <nav aria-label="Footer — nation">
+        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-brass-300">Nation</p>
+        <ul class="mt-4 space-y-2 text-sm">
+          <li><a href="{% url 'home:index' %}#patches" class="transition-colors hover:text-brass-300">Featured Patches</a></li>
+          <li><a href="{% url 'home:index' %}#passport" class="transition-colors hover:text-brass-300">Passport &amp; Seals</a></li>
+          <li><a href="{% url 'home:index' %}#world-map" class="transition-colors hover:text-brass-300">World map</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Legal line -->
+    <div class="relative border-t border-parchment-100/10">
+      <div class="content-container flex flex-col items-center justify-between gap-2 py-5 text-xs text-parchment-100/60 sm:flex-row">
+        <p>© {% now "Y" %} Patchland — <span class="font-display italic text-brass-300">Res Publica Mundi</span></p>
+        <p class="font-display italic">One Patch. One Citizen. One World.</p>
+      </div>
+    </div>
   </div>
 </footer>

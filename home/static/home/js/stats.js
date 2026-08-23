@@ -25,19 +25,29 @@
   // ------------------------------------------------------------------
   // Bootstrapping
   // ------------------------------------------------------------------
+  // The stats section (used to flag the load state) may be absent on
+  // some pages, but individual `[data-stat]` counters (e.g. in the hero)
+  // can exist anywhere. Query the whole document so every counter stays
+  // in sync with the API response.
   const container = document.getElementById("nation-stats");
-  if (!container) {
-    return; // Section not present on this page — nothing to do.
+  const statCards = document.querySelectorAll("[data-stat]");
+  if (!statCards.length) {
+    return; // No counters on this page — nothing to do.
   }
 
-  // Maps each `[data-stat]` card to its `[data-value]` node, e.g.:
+  // Maps each `[data-stat]` key to its `[data-value]` node(s). A key can
+  // appear more than once (e.g. the hero and the statistics section both
+  // show `total_patches`), so every node is collected and kept in sync.
   //   <div data-stat="total_area_m2"> ... <span data-value>…</span></div>
   const valueNodes = {};
-  container.querySelectorAll("[data-stat]").forEach((card) => {
+  statCards.forEach((card) => {
     const key = card.dataset.stat;
     const valueEl = card.querySelector("[data-value]");
     if (key && valueEl) {
-      valueNodes[key] = valueEl;
+      if (!valueNodes[key]) {
+        valueNodes[key] = [];
+      }
+      valueNodes[key].push(valueEl);
     }
   });
 
@@ -46,17 +56,26 @@
   // ------------------------------------------------------------------
   function renderStats(stats) {
     Object.entries(stats).forEach(([key, value]) => {
-      const valueEl = valueNodes[key];
-      if (!valueEl) return;
+      const nodes = valueNodes[key];
+      if (!nodes || !nodes.length) return;
 
-      valueEl.textContent =
+      const text =
         typeof value === "number" ? FORMATTER.format(value) : String(value);
+      nodes.forEach((valueEl) => {
+        valueEl.textContent = text;
+      });
     });
   }
 
   // ------------------------------------------------------------------
   // Data loading
   // ------------------------------------------------------------------
+  function setLoadState(state) {
+    if (container) {
+      container.dataset.state = state;
+    }
+  }
+
   async function loadStats() {
     try {
       const response = await fetch(ENDPOINT, {
@@ -68,11 +87,11 @@
 
       const stats = await response.json();
       renderStats(stats);
-      container.dataset.state = "loaded";
+      setLoadState("loaded");
     } catch (err) {
       // Keep the server-rendered values and flag the failure state.
       console.warn(`[patchland] Could not load stats from ${ENDPOINT}`, err);
-      container.dataset.state = "error";
+      setLoadState("error");
     }
   }
 
