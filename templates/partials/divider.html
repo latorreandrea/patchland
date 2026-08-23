@@ -1,0 +1,56 @@
+{% comment %}
+  Multi-layer animated wave divider between sections.
+
+  - `fill` is a Tailwind fill utility matching the destination section
+    colour (e.g. fill-forest-900, fill-brass-500, fill-parchment-200/70).
+  - `flip` (any non-empty value) draws the crest downward, for the bottom
+    edge of a section.
+
+  Three layers of the same wave scroll horizontally at different speeds
+  (parallax/depth) with different heights:
+    - background (opacity 30%, slowest): tallest wave
+    - middle (opacity 60%, medium, reversed): medium wave
+    - foreground (opacity 100%, fastest): shortest wave
+  Each layer is an HTML wrapper (w-[200%]) animated with translateX(-50%):
+  the wave pattern repeats every half of the wrapper, so the loop is always
+  seamless and never leaves gaps.
+
+  Top edge of a section:
+    {% include 'partials/divider.html' with fill='fill-forest-900' %}
+  Bottom edge of a section:
+    {% include 'partials/divider.html' with fill='fill-forest-900' flip='1' %}
+{% endcomment %}
+<div class="wave-divider" aria-hidden="true">
+  <!-- Layer 1: background — tallest wave, slowest -->
+  <div class="absolute inset-y-0 left-0 w-[200%] animate-wave-slow opacity-30 [animation-delay:-7s] motion-reduce:animate-none">
+    <svg class="h-full w-full" viewBox="0 0 2880 96" preserveAspectRatio="none" focusable="false">
+      {% if flip %}
+      <path class="{{ fill }}" d="M0,0 L2880,0 L2880,72 C2760,96 2640,48 2520,72 C2400,96 2280,48 2160,72 C2040,96 1920,48 1800,72 C1680,96 1560,48 1440,72 C1320,96 1200,48 1080,72 C960,96 840,48 720,72 C600,96 480,48 360,72 C240,96 120,48 0,72 Z"/>
+      {% else %}
+      <path class="{{ fill }}" d="M0,24 C120,48 240,0 360,24 C480,48 600,0 720,24 C840,48 960,0 1080,24 C1200,48 1320,0 1440,24 C1560,48 1680,0 1800,24 C1920,48 2040,0 2160,24 C2280,48 2400,0 2520,24 C2640,48 2760,0 2880,24 L2880,96 L0,96 Z"/>
+      {% endif %}
+    </svg>
+  </div>
+
+  <!-- Layer 2: middle — medium wave, reversed -->
+  <div class="absolute inset-y-0 left-0 w-[200%] animate-wave-medium opacity-60 [animation-delay:-3s] [animation-direction:reverse] motion-reduce:animate-none">
+    <svg class="h-full w-full" viewBox="0 0 2880 96" preserveAspectRatio="none" focusable="false">
+      {% if flip %}
+      <path class="{{ fill }}" d="M0,0 L2880,0 L2880,48 C2760,64 2640,32 2520,48 C2400,64 2280,32 2160,48 C2040,64 1920,32 1800,48 C1680,64 1560,32 1440,48 C1320,64 1200,32 1080,48 C960,64 840,32 720,48 C600,64 480,32 360,48 C240,64 120,32 0,48 Z"/>
+      {% else %}
+      <path class="{{ fill }}" d="M0,48 C120,64 240,32 360,48 C480,64 600,32 720,48 C840,64 960,32 1080,48 C1200,64 1320,32 1440,48 C1560,64 1680,32 1800,48 C1920,64 2040,32 2160,48 C2280,64 2400,32 2520,48 C2640,64 2760,32 2880,48 L2880,96 L0,96 Z"/>
+      {% endif %}
+    </svg>
+  </div>
+
+  <!-- Layer 3: foreground — shortest wave, fastest -->
+  <div class="absolute inset-y-0 left-0 w-[200%] animate-wave-fast motion-reduce:animate-none">
+    <svg class="h-full w-full" viewBox="0 0 2880 96" preserveAspectRatio="none" focusable="false">
+      {% if flip %}
+      <path class="{{ fill }}" d="M0,0 L2880,0 L2880,24 C2760,32 2640,16 2520,24 C2400,32 2280,16 2160,24 C2040,32 1920,16 1800,24 C1680,32 1560,16 1440,24 C1320,32 1200,16 1080,24 C960,32 840,16 720,24 C600,32 480,16 360,24 C240,32 120,16 0,24 Z"/>
+      {% else %}
+      <path class="{{ fill }}" d="M0,72 C120,80 240,64 360,72 C480,80 600,64 720,72 C840,80 960,64 1080,72 C1200,80 1320,64 1440,72 C1560,80 1680,64 1800,72 C1920,80 2040,64 2160,72 C2280,80 2400,64 2520,72 C2640,80 2760,64 2880,72 L2880,96 L0,96 Z"/>
+      {% endif %}
+    </svg>
+  </div>
+</div>

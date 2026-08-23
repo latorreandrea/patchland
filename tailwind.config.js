@@ -60,11 +60,23 @@ module.exports = {
         'spin-slower': 'spin 35s linear infinite',
         float: 'float 6s ease-in-out infinite',
         'float-slow': 'float 9s ease-in-out infinite',
+        'wave-slow': 'wave 15s linear infinite',
+        'wave-medium': 'wave 10s linear infinite',
+        'wave-fast': 'wave 7s linear infinite',
+        drift: 'drift 8s ease-in-out infinite',
       },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-14px)' },
+        },
+        wave: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        drift: {
+          '0%, 100%': { transform: 'translateY(0) scale(1)' },
+          '50%': { transform: 'translateY(-16px) scale(1.08)' },
         },
       },
     },

@@ -10,7 +10,7 @@
      HERO
      Asymmetric dark hero with a live counter and a StorySet/Pana slot.
      ============================================================ -->
-<section id="hero" class="relative bg-forest-900 text-parchment-100 [clip-path:polygon(0_0,100%_0,100%_calc(100%-2.5rem),0_100%)]">
+<section id="hero" class="relative bg-forest-900 text-parchment-100">
   <!-- Cartographic dotted texture -->
   <div class="map-grid" aria-hidden="true"></div>
 
@@ -19,7 +19,7 @@
   <div class="blob -bottom-24 -right-16 size-96 bg-forest-500/40" aria-hidden="true"></div>
   <div class="blob right-1/4 top-1/3 size-56 bg-brass-400/15" aria-hidden="true"></div>
 
-  <div class="content-container relative py-20 pb-32 sm:py-28 lg:py-32">
+  <div class="content-container relative py-20 sm:py-28 lg:py-32">
     <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
       <!-- Copy -->
       <div>
@@ -111,12 +111,16 @@
     </div>
   </div>
 </section>
+
+{% include 'partials/divider.html' with fill='fill-forest-900' flip='1' %}
+
 <!-- ============================================================
      FEATURED PATCHES
      Asymmetric card grid with blob backgrounds and hover effects.
      Data is simulated in v0.1 — will come from views/models in v0.2.
      ============================================================ -->
 <section id="patches" class="relative py-16 sm:py-20">
+  {% include 'partials/spheres.html' %}
   <div class="content-container relative">
     <div class="flex flex-wrap items-end justify-between gap-4">
       <div>
@@ -245,6 +249,7 @@
      Vision copy + four fact cards, followed by a Gardening SVG banner.
      ============================================================ -->
 <section id="overview" class="relative py-16 sm:py-20">
+  {% include 'partials/spheres.html' with variant='b' %}
   <div class="content-container">
     <div class="grid items-center gap-12 lg:grid-cols-2">
       <div>
@@ -342,11 +347,13 @@
     </div>
   </div>
 </section>
+{% include 'partials/divider.html' with fill='fill-parchment-200/70' %}
+
 <!-- ============================================================
      OBJECTIVES
-     Light parchment band with a subtle diagonal top-left cut.
+     Light parchment band with a wave top edge.
      ============================================================ -->
-<section class="relative bg-parchment-200/70 pb-16 pt-24 sm:pb-20 [clip-path:polygon(0_1.5rem,100%_0,100%_100%,0_100%)]">
+<section class="relative bg-parchment-200/70 py-16 sm:py-20">
   <div class="content-container">
     <p class="eyebrow">Objectives</p>
     <h2 class="section-title mt-3">What we are building together</h2>
@@ -374,11 +381,15 @@
     </div>
   </div>
 </section>
+
+{% include 'partials/divider.html' with fill='fill-parchment-200/70' flip='1' %}
+
 <!-- ============================================================
      CORE PRINCIPLES
      Asymmetric card grid + a dashed manifesto call-to-action card.
      ============================================================ -->
 <section class="relative py-16 sm:py-20">
+  {% include 'partials/spheres.html' %}
   <div class="content-container">
     <p class="eyebrow">Core Principles</p>
     <h2 class="section-title mt-3">The values of the nation</h2>
@@ -419,11 +430,13 @@
     </div>
   </div>
 </section>
+{% include 'partials/divider.html' with fill='fill-forest-900' %}
+
 <!-- ============================================================
      FOUNDING A PATCH
-     Dark section with diagonal top-left and bottom-right cuts.
+     Dark section with wave top and bottom edges.
      ============================================================ -->
-<section class="relative bg-forest-900 py-24 text-parchment-100 [clip-path:polygon(0_1.5rem,100%_0,100%_calc(100%-2rem),0_100%)]">
+<section class="relative bg-forest-900 py-24 text-parchment-100">
   <div class="content-container">
     <p class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brass-300 sm:tracking-[0.35em]">Requirements</p>
     <h2 class="font-display text-3xl font-semibold tracking-wide text-parchment-100 sm:text-4xl">Founding a Patch</h2>
@@ -494,11 +507,15 @@
     </div>
   </div>
 </section>
+
+{% include 'partials/divider.html' with fill='fill-forest-900' flip='1' %}
+
 <!-- ============================================================
      CUSTODIAN & SEAL
      Asymmetric parchment card + dark seal panel.
      ============================================================ -->
 <section class="relative py-16 sm:py-20">
+  {% include 'partials/spheres.html' with variant='b' %}
   <div class="content-container grid gap-6 lg:grid-cols-3">
     <div class="card-paper p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
       <span class="icon-badge">{% include 'partials/icon.html' with name='user-circle' class='size-6' %}</span>
@@ -540,6 +557,9 @@
     </div>
   </div>
 </section>
+
+{% include 'partials/divider.html' with fill='fill-parchment-200/70' %}
+
 <!-- ============================================================
      PASSPORT & SEALS
      Parchment-look card with a rotating seal + Traveling SVG slot.
@@ -637,11 +657,15 @@
     </div>
   </div>
 </section>
+
+{% include 'partials/divider.html' with fill='fill-parchment-200/70' flip='1' %}
+
 <!-- ============================================================
      WORLD MAP & PROVINCES
      Dark map panel with compass rose, ping markers and World SVG slot.
      ============================================================ -->
 <section id="world-map" class="relative py-16 sm:py-20">
+  {% include 'partials/spheres.html' %}
   <div class="content-container grid items-center gap-12 lg:grid-cols-2">
     <!-- Visual: map panel -->
     <div class="relative order-2 lg:order-1">
@@ -706,12 +730,17 @@
     </div>
   </div>
 </section>
+{% include 'partials/divider.html' with fill='fill-forest-900' %}
+
 <!-- ============================================================
      CITIZENSHIP & TITLES
      Dark band with two asymmetric cards.
      ============================================================ -->
-<section class="relative bg-forest-900 py-16 text-parchment-100 sm:py-20">
-  <div class="content-container grid gap-6 md:grid-cols-2">
+<section class="relative overflow-hidden bg-forest-900 py-16 text-parchment-100 sm:py-20">
+  <div class="blob -left-20 -top-24 size-64 bg-brass-500/20" aria-hidden="true"></div>
+  <div class="blob -bottom-24 -right-16 size-72 bg-forest-500/30" aria-hidden="true"></div>
+
+  <div class="content-container relative grid gap-6 md:grid-cols-2">
     <div class="rounded-tl-3xl rounded-br-3xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
       <span class="icon-badge border-brass-400/40 bg-brass-400/10 text-brass-300">
         {% include 'partials/icon.html' with name='identification' class='size-6' %}
@@ -729,11 +758,14 @@
   </div>
 </section>
 
+{% include 'partials/divider.html' with fill='fill-forest-900' flip='1' %}
+
 <!-- ============================================================
      COLLECTIBLES
      Symmetric chip grid with asymmetric rounding on hover.
      ============================================================ -->
 <section class="relative py-16 sm:py-20">
+  {% include 'partials/spheres.html' with variant='b' %}
   <div class="content-container">
     <div class="text-center">
       <p class="eyebrow">Collectibles</p>
@@ -772,6 +804,9 @@
     </div>
   </div>
 </section>
+
+{% include 'partials/divider.html' with fill='fill-parchment-200/70' %}
+
 <!-- ============================================================
      CONSTITUTION
      Centered parchment band.
@@ -785,11 +820,14 @@
   </div>
 </section>
 
+{% include 'partials/divider.html' with fill='fill-parchment-200/70' flip='1' %}
+
 <!-- ============================================================
      FUTURE IDEAS
      Chip list with a cartographic flavour.
      ============================================================ -->
 <section class="relative py-16 sm:py-20">
+  {% include 'partials/spheres.html' %}
   <div class="content-container">
     <div class="flex flex-wrap items-start justify-between gap-6">
       <div>
@@ -813,11 +851,13 @@
   </div>
 </section>
 
+{% include 'partials/divider.html' with fill='fill-brass-500' %}
+
 <!-- ============================================================
      CTA
-     Brass band with a diagonal top-left cut.
+     Brass band with wave top and bottom edges.
      ============================================================ -->
-<section class="relative bg-brass-500 py-16 sm:py-20 [clip-path:polygon(0_1.5rem,100%_0,100%_100%,0_100%)]">
+<section class="relative bg-brass-500 py-16 sm:py-20">
   <div class="content-container flex flex-col items-center justify-between gap-6 text-center sm:flex-row sm:text-left">
     <div>
       <p class="font-display text-2xl font-semibold text-forest-950 sm:text-3xl">One Patch. One Citizen. One World.</p>
@@ -829,12 +869,16 @@
     </a>
   </div>
 </section>
+
+{% include 'partials/divider.html' with fill='fill-brass-500' flip='1' %}
+
 <!-- ============================================================
      NATION STATISTICS
      Live counters keep the [data-stat]/[data-value] contract consumed
      by home/static/home/js/stats.js.
      ============================================================ -->
 <section id="statistics" class="relative py-16 sm:py-20">
+  {% include 'partials/spheres.html' with variant='b' %}
   <div class="content-container">
     <div class="flex flex-wrap items-end justify-between gap-4">
       <div>
