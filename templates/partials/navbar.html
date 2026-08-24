@@ -8,10 +8,10 @@
     initial: '{{ active_nav|default:'home' }}',
     links: [
       { id: 'home', label: 'Home', href: '{% url "home:index" %}' },
-      { id: 'map', label: 'Mappa', href: '{% url "home:map" %}' },
-      { id: 'register', label: 'Fonda un Patch', href: '{% url "home:register" %}' },
-      { id: 'passport', label: 'Passaporto', href: '{% url "home:passport" %}' },
-      { id: 'profile', label: 'Profilo', href: '{% url "home:profile" %}' },
+      { id: 'map', label: 'Map', href: '{% url "home:map" %}' },
+      { id: 'register', label: 'Found a Patch', href: '{% url "home:register" %}' },
+      { id: 'passport', label: 'Passport', href: '{% url "home:passport" %}' },
+      { id: 'profile', label: 'Profile', href: '{% url "home:profile" %}' },
     ]
   })"
   x-cloak>
@@ -118,7 +118,7 @@
       <svg class="size-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M12 3.75C12.4142 3.75 12.75 4.08579 12.75 4.5V11.25H19.5C19.9142 11.25 20.25 11.5858 20.25 12C20.25 12.4142 19.9142 12.75 19.5 12.75H12.75V19.5C12.75 19.9142 12.4142 20.25 12 20.25C11.5858 20.25 11.25 19.9142 11.25 19.5V12.75H4.5C4.08579 12.75 3.75 12.4142 3.75 12C3.75 11.5858 4.08579 11.25 4.5 11.25H11.25V4.5C11.25 4.08579 11.5858 3.75 12 3.75Z"/>
       </svg>
-      Fonda un Patch
+      Found a Patch
     </a>
   </header>
 </div>
