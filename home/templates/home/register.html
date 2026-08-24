@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Register a Patch — Patchland{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="relative overflow-hidden bg-forest-900 text-parchment-100">
+  <div class="map-grid" aria-hidden="true"></div>
+  <div class="content-container relative py-20 text-center sm:py-24">
+    <span class="icon-badge mx-auto border-brass-400/40 bg-brass-400/10 text-brass-300">
+      {% include 'partials/icon.html' with name='plus-circle' class='size-6' %}
+    </span>
+    <p class="mb-3 mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-brass-300 sm:tracking-[0.35em]">Fonda / Registra</p>
+    <h1 class="font-display text-5xl font-semibold leading-tight sm:text-6xl">Register a Patch</h1>
+    <p class="mx-auto mt-5 max-w-2xl text-lg text-parchment-100/85">
+      Dedicate one square meter of real, meaningful space — and become a citizen.
+    </p>
+  </div>
+</section>
+
+<!-- Registration form -->
+<section class="content-container py-16 sm:py-20">
+  <div class="mx-auto max-w-2xl">
+    <p class="eyebrow">Registration</p>
+    <h2 class="section-title mt-3">Foundation details</h2>
+
+    <form class="card-paper mt-10 space-y-6 p-6 sm:p-10" method="post" action="#">
+      {% csrf_token %}
+      <div>
+        <label for="name" class="block text-sm font-semibold text-forest-900">Official name</label>
+        <input id="name" name="name" type="text" placeholder="e.g. Raven Grove" class="mt-2 w-full rounded-lg border border-brass-300/70 bg-parchment-50 px-4 py-3 text-ink placeholder:text-ink-faint focus:border-brass-500 focus:outline-none focus:ring-2 focus:ring-brass-400/40">
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div>
+          <label for="custodian" class="block text-sm font-semibold text-forest-900">Custodian</label>
+          <input id="custodian" name="custodian" type="text" class="mt-2 w-full rounded-lg border border-brass-300/70 bg-parchment-50 px-4 py-3 text-ink focus:border-brass-500 focus:outline-none focus:ring-2 focus:ring-brass-400/40">
+        </div>
+        <div>
+          <label for="area" class="block text-sm font-semibold text-forest-900">Area (m²)</label>
+          <input id="area" name="area" type="number" min="1" class="mt-2 w-full rounded-lg border border-brass-300/70 bg-parchment-50 px-4 py-3 text-ink focus:border-brass-500 focus:outline-none focus:ring-2 focus:ring-brass-400/40">
+        </div>
+      </div>
+      <div>
+        <label for="coordinates" class="block text-sm font-semibold text-forest-900">Coordinates</label>
+        <input id="coordinates" name="coordinates" type="text" placeholder="lat, lng" class="mt-2 w-full rounded-lg border border-brass-300/70 bg-parchment-50 px-4 py-3 text-ink focus:border-brass-500 focus:outline-none focus:ring-2 focus:ring-brass-400/40">
+      </div>
+      <div>
+        <label for="story" class="block text-sm font-semibold text-forest-900">Short history</label>
+        <textarea id="story" name="story" rows="4" placeholder="Every Patch tells a story, even if only a single sentence." class="mt-2 w-full rounded-lg border border-brass-300/70 bg-parchment-50 px-4 py-3 text-ink placeholder:text-ink-faint focus:border-brass-500 focus:outline-none focus:ring-2 focus:ring-brass-400/40"></textarea>
+      </div>
+      <button type="submit" class="btn-brass w-full sm:w-auto">Fonda il Patch</button>
+      <p class="text-sm text-ink-faint">Concept form — submission handling arrives with the models in v0.2.</p>
+    </form>
+  </div>
+</section>
+{% endblock %}

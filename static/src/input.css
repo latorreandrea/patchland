@@ -37,6 +37,10 @@
   ::selection {
     @apply bg-brass-400 text-ink;
   }
+
+  [x-cloak] {
+    display: none !important;
+  }
 }
 
 @layer components {
@@ -83,6 +87,15 @@
 
   .btn-ghost-dark {
     @apply inline-flex items-center justify-center gap-2 rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border-2 border-brass-500 px-6 py-3 font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:bg-brass-500 hover:text-forest-950 hover:shadow-xl;
+  }
+
+  .tab-indicator {
+    @apply absolute bottom-0 left-0 z-0 h-12 rounded-2xl rounded-br-3xl rounded-bl-3xl bg-gradient-to-b from-brass-300 to-brass-400 transition-transform duration-500 ease-out;
+    box-shadow:
+      inset 0 2px 6px rgba(255, 255, 255, 0.6),
+      inset 0 -2px 5px rgba(166, 123, 31, 0.35),
+      0 1px 0 0 rgba(255, 255, 255, 0.5),
+      0 12px 24px -12px rgba(43, 38, 31, 0.5);
   }
 
   .map-grid {

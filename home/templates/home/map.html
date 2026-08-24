@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}World Map — Patchland{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="relative overflow-hidden bg-forest-900 text-parchment-100">
+  <div class="map-grid" aria-hidden="true"></div>
+  <div class="blob -left-24 top-16 size-72 bg-brass-500/25" aria-hidden="true"></div>
+  <div class="content-container relative py-20 text-center sm:py-24">
+    <span class="icon-badge mx-auto border-brass-400/40 bg-brass-400/10 text-brass-300">
+      {% include 'partials/icon.html' with name='globe-europe-africa' class='size-6' %}
+    </span>
+    <p class="mb-3 mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-brass-300 sm:tracking-[0.35em]">World Map</p>
+    <h1 class="font-display text-5xl font-semibold leading-tight sm:text-6xl">The Distributed Nation</h1>
+    <p class="mx-auto mt-5 max-w-2xl text-lg text-parchment-100/85">
+      Every registered Patch, plotted across the globe — no borders, just stories and squares.
+    </p>
+  </div>
+</section>
+
+<!-- Map panel -->
+<section class="content-container py-16 sm:py-20">
+  <div class="card-paper p-6 sm:p-10">
+    <p class="eyebrow">Cartography</p>
+    <h2 class="section-title mt-3">One square meter at a time</h2>
+    <div class="map-grid relative mt-8 grid min-h-[20rem] place-items-center rounded-xl border border-brass-300/50 bg-forest-900">
+      <div class="relative text-center text-parchment-100">
+        <span class="mx-auto block size-14 animate-float">{% include 'partials/icon.html' with name='globe-europe-africa' class='size-14 text-brass-300' %}</span>
+        <p class="mt-4 font-display text-2xl italic text-brass-300">Ex multis, una terra.</p>
+        <p class="mt-2 text-sm text-parchment-100/70">Interactive map arrives with v0.2 — real Patches, real coordinates.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,65 +1,190 @@
 {% comment %}
-  Patchland — top navigation.
-  Asymmetric header: compass-rose monogram, live status indicator and a
-  diagonal cut on the bottom-right edge.
+  Patchland — responsive navigation (Alpine.js).
+  Mobile (< md): floating glassmorphism tab bar with a notched animated indicator.
+  Desktop (≥ md): floating pill header with logo, text links and primary CTA.
 {% endcomment %}
-<header class="relative z-50">
-  <nav class="relative overflow-hidden bg-forest-900 pb-10 text-parchment-100 [clip-path:polygon(0_0,100%_0,100%_calc(100%-1.5rem),0_100%)]">
-    <!-- Decorative blurred blobs behind the nav content -->
-    <div class="blob -left-16 -top-16 size-48 bg-brass-500/30" aria-hidden="true"></div>
-    <div class="blob -right-12 -top-24 size-56 bg-forest-500/40" aria-hidden="true"></div>
+<div
+  x-data="navbar({
+    initial: '{{ active_nav|default:'home' }}',
+    links: [
+      { id: 'home', label: 'Home', href: '{% url "home:index" %}' },
+      { id: 'map', label: 'Mappa', href: '{% url "home:map" %}' },
+      { id: 'register', label: 'Fonda un Patch', href: '{% url "home:register" %}' },
+      { id: 'passport', label: 'Passaporto', href: '{% url "home:passport" %}' },
+      { id: 'profile', label: 'Profilo', href: '{% url "home:profile" %}' },
+    ]
+  })"
+  x-cloak>
 
-    <div class="content-container relative flex flex-wrap items-center justify-between gap-y-3 py-4">
-      <!-- Brand -->
-      <a href="{% url 'home:index' %}" class="group flex items-center gap-3">
-        <span class="relative grid size-11 place-items-center" aria-hidden="true">
-          <span class="absolute inset-0 animate-spin-slow rounded-full border border-dashed border-brass-400/70"></span>
-          <span class="absolute inset-0.5 rounded-full border border-brass-400/20"></span>
-          <span class="font-display text-xl font-bold text-brass-300">P</span>
-        </span>
-        <span class="flex flex-col leading-none">
-          <span class="font-display text-2xl tracking-wide text-parchment-100">Patchland</span>
-          <span class="hidden font-display text-sm italic text-brass-300/80 md:inline">Res Publica Mundi</span>
-        </span>
-      </a>
+  <!-- ============ Mobile: floating bottom tab bar ============ -->
+  <nav class="fixed bottom-4 left-4 right-4 z-50 md:hidden" aria-label="Primary navigation">
+    <div class="relative mx-auto max-w-md rounded-2xl border border-ink/10 bg-parchment/90 p-2 shadow-xl shadow-ink/10 backdrop-blur-md">
+      <div class="relative flex items-center">
+        <!-- Notched animated indicator -->
+        <div
+          id="indicator"
+          class="tab-indicator"
+          :style="'width:' + offset + 'px;' + indicatorStyle()"
+          aria-hidden="true"></div>
 
-      <!-- Status badge + navigation -->
-      <div class="flex items-center gap-5">
-        <span class="hidden items-center gap-2 rounded-tl-lg rounded-br-lg rounded-tr-sm rounded-bl-sm border border-brass-400/30 bg-brass-400/10 px-3 py-1.5 text-xs font-medium text-brass-200 sm:inline-flex">
-          <span class="relative flex size-2" aria-hidden="true">
-            <span class="absolute inline-flex size-full animate-ping rounded-full bg-brass-300 opacity-75"></span>
-            <span class="relative inline-flex size-2 rounded-full bg-brass-300"></span>
-          </span>
-          Nation online
-        </span>
+        <template x-for="(link, index) in links" :key="link.id">
+          <a
+            :href="link.href"
+            :aria-label="link.label"
+            @click="activeLink = index"
+            class="nav-cell group relative z-10 flex h-12 flex-1 select-none items-center justify-center outline-none"
+            :class="index === 2 ? '-translate-y-4' : ''">
 
-        <ul class="flex min-w-0 flex-wrap items-center justify-end gap-x-4 text-sm font-medium sm:gap-x-6">
-          <li>
-            <a href="{% url 'home:index' %}" class="nav-link group relative inline-block py-1">
-              Home
-              <span class="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-brass-400 transition-transform duration-300 group-hover:scale-x-100" aria-hidden="true"></span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'home:manifesto' %}" class="nav-link group relative inline-block py-1">
-              Manifesto
-              <span class="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-brass-400 transition-transform duration-300 group-hover:scale-x-100" aria-hidden="true"></span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'home:index' %}#statistics" class="nav-link group relative inline-block py-1">
-              Statistics
-              <span class="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-brass-400 transition-transform duration-300 group-hover:scale-x-100" aria-hidden="true"></span>
-            </a>
-          </li>
-          <li>
-            <a href="/api/docs" target="_blank" rel="noopener" class="nav-link group relative inline-block py-1">
-              API
-              <span class="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-brass-400 transition-transform duration-300 group-hover:scale-x-100" aria-hidden="true"></span>
-            </a>
-          </li>
-        </ul>
+            <span
+              class="relative grid size-12 place-items-center transition-all duration-300"
+              :class="index === 2
+                ? (activeLink === index
+                    ? 'rounded-full bg-brass-400 shadow-lg shadow-brass-500/40 ring-4 ring-brass-300/50'
+                    : 'rounded-full bg-forest-800 shadow-lg shadow-ink/20 ring-2 ring-brass-400/70')
+                : ''">
+
+              <!-- Inactive (stroke / outline) -->
+              <svg
+                :class="[
+                  activeLink === index ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100 group-hover:opacity-40',
+                  index === 2 ? 'text-brass-300' : 'text-ink/45'
+                ]"
+                class="col-start-1 row-start-1 size-6 transition-opacity duration-300"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                x-html="link.icon.inactive"></svg>
+
+              <!-- Active (fill / solid) -->
+              <svg
+                :class="activeLink === index ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'"
+                class="col-start-1 row-start-1 size-6 text-forest-950 transition-opacity duration-300"
+                fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+                x-html="link.icon.active"></svg>
+            </span>
+          </a>
+        </template>
       </div>
     </div>
   </nav>
-</header>
+
+  <!-- ============ Desktop: floating top header ============ -->
+  <header
+    class="fixed left-1/2 top-4 z-50 hidden -translate-x-1/2 items-center gap-6 rounded-full border border-ink/10 bg-parchment/90 px-6 py-3 shadow-lg shadow-ink/5 backdrop-blur-md md:flex"
+    aria-label="Primary navigation">
+    <!-- Brand -->
+    <a href="{% url 'home:index' %}" class="flex items-center gap-3">
+      <span class="relative grid size-9 place-items-center" aria-hidden="true">
+        <span class="absolute inset-0 animate-spin-slow rounded-full border border-dashed border-brass-500/70"></span>
+        <span class="font-display text-lg font-bold text-brass-600">P</span>
+      </span>
+      <span class="flex flex-col leading-none">
+        <span class="font-display text-lg tracking-wide text-forest-900">Patchland</span>
+        <span class="font-display text-xs italic text-brass-600">Res Publica Mundi</span>
+      </span>
+    </a>
+
+    <!-- Center links -->
+    <nav class="flex items-center gap-1" aria-label="Desktop navigation">
+      <template x-for="link in links.filter((l) => l.id !== 'register')" :key="link.id">
+        <a
+          :href="link.href"
+          @click="activate(link)"
+          class="group flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-300"
+          :class="activeId === link.id ? 'bg-forest-100 text-forest-900' : 'text-ink-soft hover:text-forest-800'">
+          <span class="relative grid size-4 place-items-center">
+            <!-- Inactive (stroke / outline) -->
+            <svg
+              :class="activeId === link.id ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100 group-hover:opacity-40'"
+              class="col-start-1 row-start-1 size-4 transition-opacity duration-300"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+              x-html="link.icon.inactive"></svg>
+            <!-- Active (fill / solid) -->
+            <svg
+              :class="activeId === link.id ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'"
+              class="col-start-1 row-start-1 size-4 transition-opacity duration-300"
+              fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+              x-html="link.icon.active"></svg>
+          </span>
+          <span x-text="link.label"></span>
+        </a>
+      </template>
+    </nav>
+
+    <!-- Primary CTA -->
+    <a
+      href="{% url 'home:register' %}"
+      class="inline-flex items-center gap-2 rounded-full bg-forest-800 px-5 py-2 text-sm font-semibold text-brass-300 shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-forest-700">
+      <svg class="size-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 3.75C12.4142 3.75 12.75 4.08579 12.75 4.5V11.25H19.5C19.9142 11.25 20.25 11.5858 20.25 12C20.25 12.4142 19.9142 12.75 19.5 12.75H12.75V19.5C12.75 19.9142 12.4142 20.25 12 20.25C11.5858 20.25 11.25 19.9142 11.25 19.5V12.75H4.5C4.08579 12.75 3.75 12.4142 3.75 12C3.75 11.5858 4.08579 11.25 4.5 11.25H11.25V4.5C11.25 4.08579 11.5858 3.75 12 3.75Z"/>
+      </svg>
+      Fonda un Patch
+    </a>
+  </header>
+</div>
+<script>
+document.addEventListener('alpine:init', () => {
+  // Official Heroicons v2.2.0 paths (outline = stroke, solid = fill).
+  const ICONS = {
+    home: {
+      inactive: '<path d="M2.25 12L11.2045 3.04549C11.6438 2.60615 12.3562 2.60615 12.7955 3.04549L21.75 12M4.5 9.75V19.875C4.5 20.4963 5.00368 21 5.625 21H9.75V16.125C9.75 15.5037 10.2537 15 10.875 15H13.125C13.7463 15 14.25 15.5037 14.25 16.125V21H18.375C18.9963 21 19.5 20.4963 19.5 19.875V9.75M8.25 21H16.5"/>',
+      active: '<path d="M11.4697 3.84099C11.7626 3.5481 12.2374 3.5481 12.5303 3.84099L21.2197 12.5303C21.5126 12.8232 21.9874 12.8232 22.2803 12.5303C22.5732 12.2374 22.5732 11.7626 22.2803 11.4697L13.591 2.78033C12.7123 1.90165 11.2877 1.90165 10.409 2.78033L1.71967 11.4697C1.42678 11.7626 1.42678 12.2374 1.71967 12.5303C2.01256 12.8232 2.48744 12.8232 2.78033 12.5303L11.4697 3.84099Z"/><path d="M12 5.43198L20.159 13.591C20.1887 13.6207 20.2191 13.6494 20.25 13.6771V19.875C20.25 20.9105 19.4105 21.75 18.375 21.75H15C14.5858 21.75 14.25 21.4142 14.25 21V16.5C14.25 16.0858 13.9142 15.75 13.5 15.75H10.5C10.0858 15.75 9.75 16.0858 9.75 16.5V21C9.75 21.4142 9.41421 21.75 9 21.75H5.625C4.58947 21.75 3.75 20.9105 3.75 19.875V13.6771C3.78093 13.6494 3.81127 13.6207 3.84099 13.591L12 5.43198Z"/>'
+    },
+    map: {
+      inactive: '<path d="M9 6.75002V15M15 9.00002V17.25M15.5031 20.7485L20.3781 18.311C20.7592 18.1204 21 17.7309 21 17.3047V4.82031C21 3.98401 20.1199 3.44007 19.3719 3.81408L15.5031 5.74847C15.1864 5.90683 14.8136 5.90683 14.4969 5.74847L9.50312 3.25158C9.1864 3.09322 8.8136 3.09322 8.49688 3.25158L3.62188 5.68908C3.24075 5.87965 3 6.26919 3 6.69531V19.1797C3 20.016 3.8801 20.56 4.62811 20.186L8.49688 18.2516C8.8136 18.0932 9.1864 18.0932 9.50312 18.2516L14.4969 20.7485C14.8136 20.9068 15.1864 20.9068 15.5031 20.7485Z"/>',
+      active: '<path fill-rule="evenodd" clip-rule="evenodd" d="M8.16147 2.58076C8.68934 2.31683 9.31066 2.31683 9.83853 2.58076L14.8323 5.07765C14.9379 5.13043 15.0621 5.13043 15.1677 5.07765L19.0365 3.14326C20.2832 2.51992 21.75 3.42647 21.75 4.82031V17.3047C21.75 18.0149 21.3487 18.6642 20.7135 18.9818L15.8385 21.4193C15.3107 21.6832 14.6893 21.6832 14.1615 21.4193L9.16771 18.9224C9.06213 18.8696 8.93787 18.8696 8.8323 18.9224L4.96353 20.8568C3.71683 21.4801 2.25 20.5736 2.25 19.1797V6.69531C2.25 5.98512 2.65125 5.33587 3.28647 5.01826L8.16147 2.58076ZM9 6.00002C9.41421 6.00002 9.75 6.3358 9.75 6.75002V15C9.75 15.4142 9.41421 15.75 9 15.75C8.58579 15.75 8.25 15.4142 8.25 15V6.75002C8.25 6.3358 8.58579 6.00002 9 6.00002ZM15.75 9.00002C15.75 8.5858 15.4142 8.25002 15 8.25002C14.5858 8.25002 14.25 8.5858 14.25 9.00002V17.25C14.25 17.6642 14.5858 18 15 18C15.4142 18 15.75 17.6642 15.75 17.25V9.00002Z"/>'
+    },
+    register: {
+      inactive: '<path d="M12 4.5V19.5M19.5 12L4.5 12"/>',
+      active: '<path fill-rule="evenodd" clip-rule="evenodd" d="M12 3.75C12.4142 3.75 12.75 4.08579 12.75 4.5V11.25H19.5C19.9142 11.25 20.25 11.5858 20.25 12C20.25 12.4142 19.9142 12.75 19.5 12.75H12.75V19.5C12.75 19.9142 12.4142 20.25 12 20.25C11.5858 20.25 11.25 19.9142 11.25 19.5V12.75H4.5C4.08579 12.75 3.75 12.4142 3.75 12C3.75 11.5858 4.08579 11.25 4.5 11.25H11.25V4.5C11.25 4.08579 11.5858 3.75 12 3.75Z"/>'
+    },
+    passport: {
+      inactive: '<path d="M12 6.04168C10.4077 4.61656 8.30506 3.75 6 3.75C4.94809 3.75 3.93834 3.93046 3 4.26212V18.5121C3.93834 18.1805 4.94809 18 6 18C8.30506 18 10.4077 18.8666 12 20.2917M12 6.04168C13.5923 4.61656 15.6949 3.75 18 3.75C19.0519 3.75 20.0617 3.93046 21 4.26212V18.5121C20.0617 18.1805 19.0519 18 18 18C15.6949 18 13.5923 18.8666 12 20.2917M12 6.04168V20.2917"/>',
+      active: '<path d="M11.25 4.53286C9.73455 3.56279 7.93246 3 6 3C4.86178 3 3.76756 3.19535 2.75007 3.55499C2.45037 3.66091 2.25 3.94425 2.25 4.26212V18.5121C2.25 18.7556 2.36818 18.9839 2.56696 19.1245C2.76574 19.265 3.02039 19.3004 3.24993 19.2192C4.10911 18.9156 5.03441 18.75 6 18.75C7.99502 18.75 9.82325 19.4573 11.25 20.6357V4.53286Z"/><path d="M12.75 20.6357C14.1768 19.4573 16.005 18.75 18 18.75C18.9656 18.75 19.8909 18.9156 20.7501 19.2192C20.9796 19.3004 21.2343 19.265 21.433 19.1245C21.6318 18.9839 21.75 18.7556 21.75 18.5121V4.26212C21.75 3.94425 21.5496 3.66091 21.2499 3.55499C20.2324 3.19535 19.1382 3 18 3C16.0675 3 14.2655 3.56279 12.75 4.53286V20.6357Z"/>'
+    },
+    profile: {
+      inactive: '<path d="M17.9815 18.7248C16.6121 16.9175 14.4424 15.75 12 15.75C9.55761 15.75 7.38789 16.9175 6.01846 18.7248M17.9815 18.7248C19.8335 17.0763 21 14.6744 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 14.6744 4.1665 17.0763 6.01846 18.7248M17.9815 18.7248C16.3915 20.1401 14.2962 21 12 21C9.70383 21 7.60851 20.1401 6.01846 18.7248M15 9.75C15 11.4069 13.6569 12.75 12 12.75C10.3431 12.75 9 11.4069 9 9.75C9 8.09315 10.3431 6.75 12 6.75C13.6569 6.75 15 8.09315 15 9.75Z"/>',
+      active: '<path fill-rule="evenodd" clip-rule="evenodd" d="M18.6854 19.0971C20.5721 17.3191 21.75 14.7971 21.75 12C21.75 6.61522 17.3848 2.25 12 2.25C6.61522 2.25 2.25 6.61522 2.25 12C2.25 14.7971 3.42785 17.3191 5.31463 19.0971C7.06012 20.7419 9.41234 21.75 12 21.75C14.5877 21.75 16.9399 20.7419 18.6854 19.0971ZM6.14512 17.8123C7.51961 16.0978 9.63161 15 12 15C14.3684 15 16.4804 16.0978 17.8549 17.8123C16.3603 19.3178 14.289 20.25 12 20.25C9.711 20.25 7.63973 19.3178 6.14512 17.8123ZM15.75 9C15.75 11.0711 14.0711 12.75 12 12.75C9.92893 12.75 8.25 11.0711 8.25 9C8.25 6.92893 9.92893 5.25 12 5.25C14.0711 5.25 15.75 6.92893 15.75 9Z"/>'
+    }
+  };
+  Alpine.data('navbar', (config = {}) => ({
+    activeLink: 0,
+    offset: 64,
+    initial: config.initial || 'home',
+    links: [],
+
+    init() {
+      this.links = (config.links || []).map((link) => ({
+        id: link.id,
+        label: link.label,
+        href: link.href,
+        icon: ICONS[link.id] || { inactive: '', active: '' },
+      }));
+
+      const idx = this.links.findIndex((link) => link.id === this.initial);
+      this.activeLink = idx >= 0 ? idx : 0;
+
+      this.$nextTick(() => this.measure());
+      window.addEventListener('resize', () => this.measure());
+    },
+
+    get activeId() {
+      return this.links[this.activeLink] ? this.links[this.activeLink].id : 'home';
+    },
+
+    activate(link) {
+      const idx = this.links.findIndex((l) => l.id === link.id);
+      if (idx >= 0) this.activeLink = idx;
+    },
+
+    measure() {
+      const cell = this.$root.querySelector('.nav-cell');
+      if (cell) this.offset = cell.getBoundingClientRect().width;
+    },
+
+    indicatorStyle() {
+      return 'transform: translateX(' + (this.offset * this.activeLink) + 'px)';
+    },
+  }));
+});
+</script>
