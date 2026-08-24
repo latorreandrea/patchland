@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+{% load home_extras %}
 
 {% block title %}Patchland — One Patch. One Citizen. One World.{% endblock %}
 
@@ -88,7 +89,7 @@
                 <span class="absolute inline-flex size-full animate-ping rounded-full bg-brass-300 opacity-75"></span>
                 <span class="relative inline-flex size-2 rounded-full bg-brass-300"></span>
               </span>
-              <span class="font-display text-2xl font-bold text-brass-300"><span data-value>{{ stats.total_area_m2|intcomma }}</span> <span class="text-base">m²</span></span>
+              <span class="flex min-w-0 flex-wrap items-baseline gap-x-1 font-display text-[clamp(0.9rem,4.5vw,1.5rem)] font-bold leading-tight text-brass-300"><span data-value class="tabular-nums whitespace-nowrap" title="{{ stats.total_area_m2|intcomma }}">{{ stats.total_area_m2|compact_int }}</span> <span class="text-sm sm:text-base">m²</span></span>
             </div>
             <p class="mt-1 text-xs uppercase tracking-widest text-parchment-100/60">Territory</p>
           </div>
@@ -877,7 +878,7 @@
 
     <div id="nation-stats" class="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
       <div class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl" data-stat="total_area_m2">
-        <p class="font-display text-2xl font-bold text-forest-900 sm:text-3xl"><span data-value>{{ stats.total_area_m2|intcomma }}</span> <span class="text-lg">m²</span></p>
+        <p class="flex flex-wrap items-baseline justify-center gap-x-1 font-display text-2xl font-bold leading-tight text-forest-900 sm:text-3xl"><span data-value class="tabular-nums whitespace-nowrap" title="{{ stats.total_area_m2|intcomma }}">{{ stats.total_area_m2|compact_int }}</span> <span class="text-lg">m²</span></p>
         <p class="mt-1 text-xs uppercase tracking-widest text-ink-soft">Territory</p>
       </div>
       <div class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl" data-stat="custodians">

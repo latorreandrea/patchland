@@ -17,8 +17,16 @@
   /** Endpoint exposed by `patchland/api.py` -> `home/api.py`. */
   const ENDPOINT = "/api/home/stats";
 
-  /** Numbers come from Postgres and may include decimal areas (m²). */
+  /** Numbers come from Postgres and may include decimal areas (m²). Compact
+   *  notation keeps the counters readable inside narrow cards; the exact
+   *  value is exposed via the `title` tooltip (see `FORMATTER_EXACT` below). */
   const FORMATTER = new Intl.NumberFormat("en-US", {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  });
+
+  /** Exact value used for the `title` tooltip of compacted counters. */
+  const FORMATTER_EXACT = new Intl.NumberFormat("en-US", {
     maximumFractionDigits: 2,
   });
 
@@ -59,10 +67,19 @@
       const nodes = valueNodes[key];
       if (!nodes || !nodes.length) return;
 
-      const text =
-        typeof value === "number" ? FORMATTER.format(value) : String(value);
+      const isNumber = typeof value === "number";
+      const text = isNumber ? FORMATTER.format(value) : String(value);
+      const exactText = isNumber
+        ? FORMATTER_EXACT.format(value)
+        : String(value);
       nodes.forEach((valueEl) => {
         valueEl.textContent = text;
+        // Keep the "exact value" tooltip in sync with the live data. Only
+        // counters that opted in via a server-rendered `title` attribute get
+        // the tooltip (currently `total_area_m2`).
+        if (valueEl.hasAttribute("title")) {
+          valueEl.title = exactText;
+        }
       });
     });
   }
