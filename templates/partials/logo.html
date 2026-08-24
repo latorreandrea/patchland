@@ -1,0 +1,28 @@
+{% comment %}
+  Patchland — animated brand block for the top of heroes (mobile only).
+  Big compass-rose monogram + wordmark + tagline + "Nation online" pill.
+  Hidden on md+ where the floating desktop header shows the (smaller) logo.
+  Usage:
+    {% include 'partials/logo.html' %}
+{% endcomment %}
+<div class="mb-10 flex flex-col items-center gap-3 md:hidden">
+  <!-- Compass-rose monogram -->
+  <span class="relative grid size-20 place-items-center" aria-hidden="true">
+    <span class="absolute inset-0 animate-spin-slow rounded-full border-2 border-dashed border-brass-400/80"></span>
+    <span class="absolute inset-1.5 rounded-full border border-brass-400/25"></span>
+    <span class="font-display text-4xl font-bold text-brass-300">P</span>
+  </span>
+
+  <!-- Wordmark -->
+  <span class="font-display text-3xl tracking-wide text-parchment-100">Patchland</span>
+  <span class="font-display text-base italic text-brass-300/90">Res Publica Mundi</span>
+
+  <!-- Status pill -->
+  <span class="mt-2 inline-flex items-center gap-2 rounded-full border border-brass-400/40 bg-brass-400/10 px-3 py-1 text-xs font-medium text-brass-200">
+    <span class="relative flex size-2" aria-hidden="true">
+      <span class="absolute inline-flex size-full animate-ping rounded-full bg-brass-300 opacity-75"></span>
+      <span class="relative inline-flex size-2 rounded-full bg-brass-300"></span>
+    </span>
+    Nation online
+  </span>
+</div>

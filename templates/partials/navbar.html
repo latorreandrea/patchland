@@ -18,7 +18,7 @@
 
   <!-- ============ Mobile: floating bottom tab bar ============ -->
   <nav class="fixed bottom-4 left-4 right-4 z-50 md:hidden" aria-label="Primary navigation">
-    <div class="relative mx-auto max-w-md rounded-2xl border border-ink/10 bg-parchment/90 p-2 shadow-xl shadow-ink/10 backdrop-blur-md">
+    <div class="relative mx-auto max-w-md rounded-2xl border border-ink/15 bg-parchment-50/95 p-2 shadow-xl shadow-ink/15 backdrop-blur-xl">
       <div class="relative flex items-center">
         <!-- Notched animated indicator -->
         <div
@@ -31,7 +31,7 @@
           <a
             :href="link.href"
             :aria-label="link.label"
-            @click="activeLink = index"
+            @click="go(link, $event)"
             class="nav-cell group relative z-10 flex h-12 flex-1 select-none items-center justify-center outline-none"
             :class="index === 2 ? '-translate-y-4' : ''">
 
@@ -69,7 +69,7 @@
 
   <!-- ============ Desktop: floating top header ============ -->
   <header
-    class="fixed left-1/2 top-4 z-50 hidden -translate-x-1/2 items-center gap-6 rounded-full border border-ink/10 bg-parchment/90 px-6 py-3 shadow-lg shadow-ink/5 backdrop-blur-md md:flex"
+    class="fixed left-1/2 top-4 z-50 hidden -translate-x-1/2 items-center gap-6 rounded-full border border-ink/15 bg-parchment-50/95 px-6 py-3 shadow-lg shadow-ink/10 backdrop-blur-xl md:flex"
     aria-label="Primary navigation">
     <!-- Brand -->
     <a href="{% url 'home:index' %}" class="flex items-center gap-3">
@@ -88,7 +88,7 @@
       <template x-for="link in links.filter((l) => l.id !== 'register')" :key="link.id">
         <a
           :href="link.href"
-          @click="activate(link)"
+          @click="go(link, $event)"
           class="group flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-300"
           :class="activeId === link.id ? 'bg-forest-100 text-forest-900' : 'text-ink-soft hover:text-forest-800'">
           <span class="relative grid size-4 place-items-center">
@@ -147,6 +147,10 @@ document.addEventListener('alpine:init', () => {
       active: '<path fill-rule="evenodd" clip-rule="evenodd" d="M18.6854 19.0971C20.5721 17.3191 21.75 14.7971 21.75 12C21.75 6.61522 17.3848 2.25 12 2.25C6.61522 2.25 2.25 6.61522 2.25 12C2.25 14.7971 3.42785 17.3191 5.31463 19.0971C7.06012 20.7419 9.41234 21.75 12 21.75C14.5877 21.75 16.9399 20.7419 18.6854 19.0971ZM6.14512 17.8123C7.51961 16.0978 9.63161 15 12 15C14.3684 15 16.4804 16.0978 17.8549 17.8123C16.3603 19.3178 14.289 20.25 12 20.25C9.711 20.25 7.63973 19.3178 6.14512 17.8123ZM15.75 9C15.75 11.0711 14.0711 12.75 12 12.75C9.92893 12.75 8.25 11.0711 8.25 9C8.25 6.92893 9.92893 5.25 12 5.25C14.0711 5.25 15.75 6.92893 15.75 9Z"/>'
     }
   };
+
+  // Durata (ms) dell'animazione di selezione prima di navigare (coerente con duration-500).
+  const NAV_ANIMATION_MS = 500;
+
   Alpine.data('navbar', (config = {}) => ({
     activeLink: 0,
     offset: 64,
@@ -172,9 +176,21 @@ document.addEventListener('alpine:init', () => {
       return this.links[this.activeLink] ? this.links[this.activeLink].id : 'home';
     },
 
-    activate(link) {
+    go(link, event) {
       const idx = this.links.findIndex((l) => l.id === link.id);
-      if (idx >= 0) this.activeLink = idx;
+      if (idx < 0) return;
+      // Click modificati (Ctrl/Cmd/Shift/Alt, tasto centrale) -> comportamento nativo (nuova scheda)
+      if (event && (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0)) return;
+      // Stessa pagina o prefers-reduced-motion -> navigazione immediata
+      if (idx === this.activeLink || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (event && event.preventDefault) event.preventDefault();
+      this.activeLink = idx; // avvia l'animazione di selezione
+      if (this._pendingNav) return; // evita doppi click
+      this._pendingNav = true;
+      window.setTimeout(() => {
+        this._pendingNav = false;
+        window.location.href = link.href; // naviga a fine animazione
+      }, NAV_ANIMATION_MS);
     },
 
     measure() {
