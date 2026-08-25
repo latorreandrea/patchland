@@ -1,64 +1,234 @@
 {% comment %}
   Patchland — footer.
-  Shaped footer with a diagonal top-left cut, a slowly rotating compass
-  rose and a brass accent divider.
+  TryResponse-inspired layout adapted to the Patchland design system:
+  a modular pre-footer CTA band, a multi-column grid (brand ~40% / links ~60%)
+  and a sub-footer with dynamic copyright, credits (Storyset / AuraVisual) and
+  a smooth "Back to top" anchor (requires id="top" on <body> in base.html).
+
+  Context variables:
+    - active_nav        : current section id passed by the views
+                          ('home', 'map', 'passport', 'register', ...).
+    - patchland_version : optional platform version; falls back to '0.1.0'.
+    - hide_footer_cta   : set True in a view context to hide the CTA band.
 {% endcomment %}
-<footer class="relative mt-20">
-  <div class="relative overflow-hidden border-t-4 border-brass-500 bg-forest-900 pt-16 text-parchment-100/80 [clip-path:polygon(0_1.5rem,100%_0,100%_100%,0_100%)]">
-    <!-- Decorative blurred blobs -->
+<footer id="footer" class="relative mt-20">
+
+  <!-- ============ Pre-footer CTA band (modular) ============ -->
+  {% if not hide_footer_cta %}
+  <section class="relative overflow-hidden border-t-4 border-brass-500 bg-forest-900 text-parchment-100">
+    <div class="map-grid" aria-hidden="true"></div>
     <div class="blob -left-20 -top-24 size-64 bg-brass-500/20" aria-hidden="true"></div>
     <div class="blob -bottom-24 -right-16 size-72 bg-forest-500/30" aria-hidden="true"></div>
 
-    <div class="content-container relative grid gap-10 py-12 md:grid-cols-[1.5fr_1fr_1fr]">
-      <!-- Brand & motto -->
-      <div>
-        <div class="flex items-center gap-3">
-          <span class="relative grid size-10 place-items-center" aria-hidden="true">
-            <span class="absolute inset-0 animate-spin-slower rounded-full border border-dashed border-brass-400/70"></span>
-            <span class="font-display text-lg font-bold text-brass-300">P</span>
-          </span>
-          <span class="font-display text-2xl tracking-wide text-parchment-100">Patchland</span>
-        </div>
-        <p class="mt-4 max-w-sm text-sm text-parchment-100/70">
-          A distributed, imaginary nation built one Patch at a time. No borders, no claims — just stories.
+    <div class="content-container relative flex flex-col items-center gap-8 py-16 text-center md:py-20 lg:flex-row lg:justify-between lg:gap-12 lg:text-left">
+      <div class="max-w-xl">
+        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-brass-300">Res Publica Mundi</p>
+        <h2 class="mt-3 font-display text-4xl font-semibold tracking-wide sm:text-5xl">Ready to explore?</h2>
+        <p class="mt-4 text-parchment-100/80">
+          Dedicate one square meter of meaningful space, earn your seal and welcome the
+          travellers who come to discover it. The nation grows one Patch at a time.
         </p>
-        <p class="mt-4 font-display italic text-brass-300">Ex multis, una terra.</p>
+      </div>
+      <div class="flex flex-col items-center gap-4 sm:flex-row lg:shrink-0">
+        <a href="{% url 'home:register' %}" class="btn-brass">
+          {% include 'partials/icon.html' with name='plus-circle' class='size-5' %}
+          Found a Patch
+        </a>
+        <a href="{% url 'home:map' %}" class="btn-ghost">
+          {% include 'partials/icon.html' with name='map' class='size-5' %}
+          Explore the map
+        </a>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- ============ Main footer grid ============ -->
+  <div class="bg-ink text-parchment-100/80">
+    <div class="content-container grid gap-x-8 gap-y-12 py-12 sm:grid-cols-2 md:py-16 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+
+      <!-- Brand & info (~40% of the grid on desktop) -->
+      <div class="sm:col-span-2 lg:col-span-1">
+        <a href="{% url 'home:index' %}" class="inline-flex items-center gap-3" aria-label="Patchland — home">
+          <span class="relative grid size-11 place-items-center" aria-hidden="true">
+            <span class="absolute inset-0 animate-spin-slower rounded-full border border-dashed border-brass-400/70"></span>
+            <span class="absolute inset-1 rounded-full border border-brass-400/25"></span>
+            <span class="font-display text-xl font-bold text-brass-300">P</span>
+          </span>
+          <span class="flex flex-col leading-none">
+            <span class="font-display text-2xl tracking-wide text-parchment-100">Patchland</span>
+            <span class="mt-1 font-display text-sm italic text-brass-300">Res Publica Mundi</span>
+          </span>
+        </a>
+
+        <p class="mt-5 max-w-sm text-sm leading-relaxed text-parchment-100/70">
+          A distributed, imaginary nation built one Patch at a time. No borders,
+          no claims — just stories shared by citizens across the world.
+        </p>
+
+        <!-- System status & platform version -->
+        <p class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
+          <span class="inline-flex items-center gap-2 rounded-full border border-forest-400/40 bg-forest-400/10 px-3 py-1 text-xs font-medium text-forest-200">
+            <span class="relative flex size-2" aria-hidden="true">
+              <span class="absolute inline-flex size-full animate-ping rounded-full bg-forest-300 opacity-75"></span>
+              <span class="relative inline-flex size-2 rounded-full bg-forest-300"></span>
+            </span>
+            System operational
+          </span>
+          <span class="text-[11px] uppercase tracking-wider text-parchment-100/40">
+            Platform v{{ patchland_version|default:'0.1.0' }}
+          </span>
+        </p>
+
+        <!-- Community / social links -->
+        <div class="mt-7 flex items-center gap-3">
+          <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="Patchland on GitHub"
+             class="group relative grid size-10 place-items-center rounded-full border border-parchment-100/15 transition-colors duration-200 hover:border-brass-400/60">
+            <svg class="col-start-1 row-start-1 size-5 opacity-100 transition-opacity duration-200 group-hover:opacity-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+              <path d="M9 18c-4.51 2-5-2-7-2"/>
+            </svg>
+            <svg class="col-start-1 row-start-1 size-5 opacity-0 transition-opacity duration-200 group-hover:opacity-100" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+          </a>
+          <a href="https://discord.gg/" target="_blank" rel="noopener noreferrer" aria-label="Patchland on Discord"
+             class="group relative grid size-10 place-items-center rounded-full border border-parchment-100/15 transition-colors duration-200 hover:border-brass-400/60">
+            <svg class="col-start-1 row-start-1 size-5 opacity-100 transition-opacity duration-200 group-hover:opacity-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 12a1 1 0 1 0 2 0a1 1 0 0 0-2 0"/>
+              <path d="M14 12a1 1 0 1 0 2 0a1 1 0 0 0-2 0"/>
+              <path d="M8.5 17c0 1-1.5 3-2 3-1.5 0-2.833-1.667-3.5-3-.667-1.667-.5-5.833 1.5-11.5 1.457-1.015 3-1.34 4.5-1.5l1 2.5"/>
+              <path d="M15.5 17c0 1 1.5 3 2 3 1.5 0 2.833-1.667 3.5-3 .667-1.667.5-5.833-1.5-11.5-1.457-1.015-3-1.34-4.5-1.5l-1 2.5"/>
+            </svg>
+            <svg class="col-start-1 row-start-1 size-5 opacity-0 transition-opacity duration-200 group-hover:opacity-100" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+            </svg>
+          </a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Patchland on Instagram"
+             class="group relative grid size-10 place-items-center rounded-full border border-parchment-100/15 transition-colors duration-200 hover:border-brass-400/60">
+            <svg class="col-start-1 row-start-1 size-5 opacity-100 transition-opacity duration-200 group-hover:opacity-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+            </svg>
+            <svg class="col-start-1 row-start-1 size-5 opacity-0 transition-opacity duration-200 group-hover:opacity-100" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+            </svg>
+          </a>
+        </div>
       </div>
 
-      <!-- Explore links -->
+      <!-- Explore -->
       <nav aria-label="Footer — explore">
         <p class="text-xs font-semibold uppercase tracking-[0.25em] text-brass-300">Explore</p>
-        <ul class="mt-4 space-y-2 text-sm">
-          <li><a href="{% url 'home:index' %}" class="transition-colors hover:text-brass-300">Home</a></li>
-          <li><a href="{% url 'home:manifesto' %}" class="transition-colors hover:text-brass-300">Manifesto</a></li>
-          <li><a href="{% url 'home:index' %}#statistics" class="transition-colors hover:text-brass-300">Statistics</a></li>
+        <ul class="mt-5 space-y-3 text-sm">
+          <li>
+            <a href="{% url 'home:index' %}" class="group inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-brass-300{% if active_nav == 'home' %} text-brass-300{% endif %}"{% if active_nav == 'home' %} aria-current="page"{% endif %}>
+              <svg class="size-3.5 -translate-x-0.5 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'home:map' %}" class="group inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-brass-300{% if active_nav == 'map' %} text-brass-300{% endif %}"{% if active_nav == 'map' %} aria-current="page"{% endif %}>
+              <svg class="size-3.5 -translate-x-0.5 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+              Map
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'home:passport' %}" class="group inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-brass-300{% if active_nav == 'passport' %} text-brass-300{% endif %}"{% if active_nav == 'passport' %} aria-current="page"{% endif %}>
+              <svg class="size-3.5 -translate-x-0.5 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+              Passport
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'home:index' %}#patches" class="group inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-brass-300">
+              <svg class="size-3.5 -translate-x-0.5 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+              Find Patches
+            </a>
+          </li>
         </ul>
       </nav>
 
-      <!-- Nation links -->
-      <nav aria-label="Footer — nation">
-        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-brass-300">Nation</p>
-        <ul class="mt-4 space-y-2 text-sm">
-          <li><a href="{% url 'home:index' %}#patches" class="transition-colors hover:text-brass-300">Featured Patches</a></li>
-          <li><a href="{% url 'home:index' %}#passport" class="transition-colors hover:text-brass-300">Passport &amp; Seals</a></li>
-          <li><a href="{% url 'home:index' %}#world-map" class="transition-colors hover:text-brass-300">World map</a></li>
+      <!-- Community -->
+      <nav aria-label="Footer — community">
+        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-brass-300">Community</p>
+        <ul class="mt-5 space-y-3 text-sm">
+          <li>
+            <a href="{% url 'home:manifesto' %}" class="group inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-brass-300">
+              <svg class="size-3.5 -translate-x-0.5 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+              Manifesto
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'home:register' %}" class="group inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-brass-300{% if active_nav == 'register' %} text-brass-300{% endif %}"{% if active_nav == 'register' %} aria-current="page"{% endif %}>
+              <svg class="size-3.5 -translate-x-0.5 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+              Found a Patch
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'home:index' %}#statistics" class="group inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-brass-300">
+              <svg class="size-3.5 -translate-x-0.5 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+              Statistics
+            </a>
+          </li>
         </ul>
       </nav>
+
+      <!-- Resources & Legal -->
+      {% comment %}
+        Privacy, Terms and FAQ are not live pages yet.
+        Replace the href="#" placeholders with their {% url %} tags as soon as
+        the routes exist (e.g. {% url 'home:privacy' %}, {% url 'home:terms' %}).
+      {% endcomment %}
+      <nav aria-label="Footer — resources">
+        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-brass-300">Resources &amp; Legal</p>
+        <ul class="mt-5 space-y-3 text-sm">
+          <li>
+            <a href="#" class="group inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-brass-300">
+              <svg class="size-3.5 -translate-x-0.5 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+              Privacy Policy
+            </a>
+          </li>
+          <li>
+            <a href="#" class="group inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-brass-300">
+              <svg class="size-3.5 -translate-x-0.5 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+              Terms of Service
+            </a>
+          </li>
+          <li>
+            <a href="#" class="group inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-brass-300">
+              <svg class="size-3.5 -translate-x-0.5 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+              FAQ
+            </a>
+          </li>
+          <li>
+            <a href="https://storyset.com" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-brass-300">
+              <svg class="size-3.5 -translate-x-0.5 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+              Credits — Storyset
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+
+  <!-- ============ Sub-footer ============ -->
+  <div class="border-t border-parchment-100/10 bg-ink">
+    <div class="content-container flex flex-col items-center justify-between gap-3 py-6 text-xs text-parchment-100/60 sm:flex-row">
+      <p>© {% now "Y" %} Patchland. All rights reserved.</p>
+      <p class="font-display italic text-brass-300">One Patch. One Citizen. One World.</p>
+      <a href="#top" class="inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-brass-300">
+        Back to top
+        <svg class="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 15.75 7.5-7.5 7.5 7.5"/></svg>
+      </a>
     </div>
 
-    <!-- Legal line -->
-    <div class="relative border-t border-parchment-100/10">
-      <div class="content-container flex flex-col items-center justify-between gap-2 py-5 text-xs text-parchment-100/60 sm:flex-row">
-        <p>© {% now "Y" %} Patchland — <span class="font-display italic text-brass-300">Res Publica Mundi</span></p>
-        <p class="font-display italic">One Patch. One Citizen. One World.</p>
-      </div>
-
-      <!-- Credits -->
-      <div class="border-t border-parchment-100/10">
-        <div class="content-container flex flex-col items-center justify-between gap-1 py-4 text-[11px] text-parchment-100/50 sm:flex-row">
-          <p>Illustrations by <a href="https://storyset.com" target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-brass-300">Storyset</a></p>
-          <p>Site design &amp; creation by <a href="https://www.auravisual.dk/" target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-brass-300">AuraVisual</a></p>
-        </div>
+    <!-- Credits -->
+    <div class="border-t border-parchment-100/10">
+      <div class="content-container flex flex-col items-center justify-between gap-1.5 pb-24 pt-4 text-[11px] text-parchment-100/50 sm:flex-row md:pb-4">
+        <p>Illustrations by <a href="https://storyset.com" target="_blank" rel="noopener noreferrer" class="transition-colors duration-200 hover:text-brass-300">Storyset</a></p>
+        <p>Site design &amp; creation by <a href="https://www.auravisual.dk/" target="_blank" rel="noopener noreferrer" class="transition-colors duration-200 hover:text-brass-300">AuraVisual</a></p>
       </div>
     </div>
   </div>
