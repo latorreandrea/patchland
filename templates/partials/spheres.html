@@ -1,51 +1,124 @@
 {% comment %}
-  Decorative animated background spheres (gold) for light sections.
+  Decorative background spheres with a scroll-driven horizontal entrance/exit
+  (parallax) animation, powered by Alpine.js + CSS transforms.
 
-  Include it as the first element inside a `relative` section — it paints
-  behind the content (negative z-index). Spheres are individually positioned
-  so they spread across the full width, bleeding off the left and right
-  edges (clipped by `overflow-hidden`) while staying clear of the top and
-  bottom section edges.
+  HOW TO USE
+  ----------
+  Include this partial as the first element inside a `relative` <section>.
+  The section MUST carry the Alpine wiring — the `direction` argument decides
+  the motion:
 
-  Two distributions are available for variety:
+    <section
+      x-data="scrollSpheres('left-to-right')"   <!-- or 'right-to-left' -->
+      x-ref="stage"
+      @scroll.window.passive="onScroll"
+      @resize.window="onResize"
+      class="relative ...">
+      {% include 'partials/spheres.html' %}
+      ...
+    </section>
+
+  Motion contract (a pure function of scroll position, fully reversible):
+    - 'left-to-right' → spheres enter from -X, reach translateX(0) when the
+      section is centred in the viewport, then exit toward +X.
+    - 'right-to-left' → the exact mirror image.
+
+  The `scrollSpheres` Alpine component is registered once per page (see the
+  `postloadjs` block in home/templates/home/index.html).
+
+  Two sphere distributions are available for variety:
     - default (no `variant`) → distribution A
-    - `variant='b'`         → distribution B
+    - `variant='b'`          → distribution B
 
-  Usage:
-    {% include 'partials/spheres.html' %}
-    {% include 'partials/spheres.html' with variant='b' %}
+  PERFORMANCE
+  -----------
+  The scroll translateX lives on an OUTER span (`will-change-transform`,
+  compositor-only). The idle `drift` animation (float + scale) runs on an
+  INNER span. The two transforms MUST stay on separate elements: a CSS
+  keyframe animation overrides the inline transform on the same element.
 
-  Each sphere uses the `drift` animation (float + scale + opacity pulse),
-  with different negative delays/durations for organic, out-of-sync motion.
-  `motion-reduce:animate-none` keeps them static for users who prefer
-  reduced motion.
+  ACCESSIBILITY
+  -------------
+  `motion-reduce:animate-none` on the inner spans, plus the component's
+  `prefers-reduced-motion` check, keep the spheres static at their base
+  position for users who prefer reduced motion.
 {% endcomment %}
 <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
   {% if variant == 'b' %}
-  <span class="absolute left-[8%] top-[16%] size-12 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-2s]"></span>
-  <span class="absolute left-[14%] top-[52%] size-24 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-4s]"></span>
-  <span class="absolute left-[28%] top-[28%] size-10 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-6s]"></span>
-  <span class="absolute left-[40%] top-[58%] size-14 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-1s]"></span>
-  <span class="absolute left-[50%] top-[18%] size-16 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-3s] [animation-duration:10s]"></span>
-  <span class="absolute left-[60%] top-[42%] size-20 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-5s]"></span>
-  <span class="absolute left-[72%] top-[18%] size-9 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-7s]"></span>
-  <span class="absolute left-[80%] top-[54%] h-12 w-20 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-2s]"></span>
-  <span class="absolute left-[92%] top-[32%] size-20 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-4s] [animation-duration:9s]"></span>
-  <span class="absolute -left-10 top-[18%] size-14 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-6s]"></span>
-  <span class="absolute -right-8 top-[48%] size-12 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-1s]"></span>
-  <span class="absolute left-[34%] top-[66%] size-8 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-3s] [animation-duration:12s]"></span>
+  <!-- Distribution B -->
+  <span class="absolute left-[8%] top-[16%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-12 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-2s]"></span>
+  </span>
+  <span class="absolute left-[14%] top-[52%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-24 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-4s]"></span>
+  </span>
+  <span class="absolute left-[28%] top-[28%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-10 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-6s]"></span>
+  </span>
+  <span class="absolute left-[40%] top-[58%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-14 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-1s]"></span>
+  </span>
+  <span class="absolute left-[50%] top-[18%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-16 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-3s] [animation-duration:10s]"></span>
+  </span>
+  <span class="absolute left-[60%] top-[42%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-20 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-5s]"></span>
+  </span>
+  <span class="absolute left-[72%] top-[18%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-9 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-7s]"></span>
+  </span>
+  <span class="absolute left-[80%] top-[54%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block h-12 w-20 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-2s]"></span>
+  </span>
+  <span class="absolute left-[92%] top-[32%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-20 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-4s] [animation-duration:9s]"></span>
+  </span>
+  <span class="absolute -left-10 top-[18%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-14 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-6s]"></span>
+  </span>
+  <span class="absolute -right-8 top-[48%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-12 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-1s]"></span>
+  </span>
+  <span class="absolute left-[34%] top-[66%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-8 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-3s] [animation-duration:12s]"></span>
+  </span>
   {% else %}
-  <span class="absolute left-[5%] top-[30%] size-28 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-1s] [animation-duration:9s]"></span>
-  <span class="absolute left-[18%] top-[12%] size-10 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-3s]"></span>
-  <span class="absolute left-[24%] top-[55%] size-16 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-5s]"></span>
-  <span class="absolute left-[36%] top-[20%] size-12 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-2s]"></span>
-  <span class="absolute left-[46%] top-[46%] size-20 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-4s] [animation-duration:11s]"></span>
-  <span class="absolute left-[56%] top-[14%] size-8 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-6s]"></span>
-  <span class="absolute left-[64%] top-[36%] size-14 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-1s]"></span>
-  <span class="absolute left-[74%] top-[58%] h-10 w-16 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-3s]"></span>
-  <span class="absolute left-[86%] top-[22%] size-11 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-5s]"></span>
-  <span class="absolute -left-8 top-[42%] size-16 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-2s]"></span>
-  <span class="absolute -right-8 top-[26%] size-20 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-4s]"></span>
-  <span class="absolute left-[50%] top-[68%] size-9 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-6s] [animation-duration:12s]"></span>
+  <!-- Distribution A -->
+  <span class="absolute left-[5%] top-[30%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-28 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-1s] [animation-duration:9s]"></span>
+  </span>
+  <span class="absolute left-[18%] top-[12%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-10 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-3s]"></span>
+  </span>
+  <span class="absolute left-[24%] top-[55%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-16 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-5s]"></span>
+  </span>
+  <span class="absolute left-[36%] top-[20%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-12 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-2s]"></span>
+  </span>
+  <span class="absolute left-[46%] top-[46%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-20 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-4s] [animation-duration:11s]"></span>
+  </span>
+  <span class="absolute left-[56%] top-[14%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-8 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-6s]"></span>
+  </span>
+  <span class="absolute left-[64%] top-[36%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-14 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-1s]"></span>
+  </span>
+  <span class="absolute left-[74%] top-[58%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block h-10 w-16 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-3s]"></span>
+  </span>
+  <span class="absolute left-[86%] top-[22%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-11 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-5s]"></span>
+  </span>
+  <span class="absolute -left-8 top-[42%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-16 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-2s]"></span>
+  </span>
+  <span class="absolute -right-8 top-[26%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-20 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-4s]"></span>
+  </span>
+  <span class="absolute left-[50%] top-[68%] will-change-transform" :style="'transform: translateX(' + offset + 'px)'">
+    <span class="block size-9 animate-drift rounded-full bg-brass-300/60 motion-reduce:animate-none [animation-delay:-6s] [animation-duration:12s]"></span>
+  </span>
   {% endif %}
 </div>
