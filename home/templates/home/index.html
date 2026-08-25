@@ -21,12 +21,14 @@
   <div class="blob right-1/4 top-1/3 size-56 bg-brass-400/15" aria-hidden="true"></div>
 
   <div class="content-container relative pt-6 pb-20 md:py-28 lg:py-32">
-    {% include 'partials/logo.html' %}
+    <div x-data="reveal('from-top')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="transition-all duration-700 ease-out">
+      {% include 'partials/logo.html' %}
+    </div>
 
     <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
       <!-- Copy -->
       <div>
-        <span class="inline-flex items-center gap-2 rounded-tl-xl rounded-br-xl rounded-tr-sm rounded-bl-sm border border-brass-400/40 bg-brass-400/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-brass-300">
+        <span x-data="reveal('from-top')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="inline-flex items-center gap-2 rounded-tl-xl rounded-br-xl rounded-tr-sm rounded-bl-sm border border-brass-400/40 bg-brass-400/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-brass-300 transition-all duration-700 ease-out">
           <span class="relative flex size-2" aria-hidden="true">
             <span class="absolute inline-flex size-full animate-ping rounded-full bg-brass-300 opacity-75"></span>
             <span class="relative inline-flex size-2 rounded-full bg-brass-300"></span>
@@ -34,17 +36,17 @@
           A distributed, imaginary nation
         </span>
 
-        <h1 class="mt-6 font-display text-5xl font-semibold leading-[1.02] sm:text-6xl lg:text-7xl">
+        <h1 x-data="reveal('from-top', { delay: 100 })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="mt-6 font-display text-5xl font-semibold leading-[1.02] sm:text-6xl lg:text-7xl transition-all duration-700 ease-out">
           Res Publica <span class="italic text-brass-300">Mundi</span>
         </h1>
 
-        <p class="mt-5 max-w-xl text-lg leading-relaxed text-parchment-100/85">
+        <p x-data="reveal('from-top', { delay: 200 })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="mt-5 max-w-xl text-lg leading-relaxed text-parchment-100/85 transition-all duration-700 ease-out">
           Patchland is a nation without borders, built one Patch at a time: a square
           meter of real, meaningful space voluntarily dedicated by its Custodian.
           No claims — just stories.
         </p>
 
-        <div class="mt-8 flex flex-wrap gap-4">
+        <div x-data="reveal('from-top', { delay: 300 })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="mt-8 flex flex-wrap gap-4 transition-all duration-700 ease-out">
           <a href="{% url 'home:manifesto' %}" class="btn-brass">
             {% include 'partials/icon.html' with name='flag' class='size-5' %}
             Read the manifesto
@@ -60,7 +62,7 @@
         </div>
 
         <!-- Live counters — kept in sync by home/static/home/js/stats.js -->
-        <div class="mt-10 grid max-w-xl grid-cols-3 gap-4">
+        <div x-data="reveal('from-top', { delay: 400 })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="mt-10 grid max-w-xl grid-cols-3 gap-4 transition-all duration-700 ease-out">
           <div class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-4" data-stat="total_patches">
             <div class="flex items-center gap-2">
               <span class="relative flex size-2" aria-hidden="true">
@@ -96,7 +98,7 @@
         </div>
       </div>
       <!-- StorySet / Pana SVG slot — hero illustration -->
-      <div class="relative hidden lg:block">
+      <div x-data="reveal('from-top', { delay: 150 })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="relative hidden lg:block transition-all duration-700 ease-out">
         <div class="absolute inset-0 -z-10 scale-110 rounded-full bg-brass-400/10 blur-3xl" aria-hidden="true"></div>
         {% comment %}
           Storyset "World" illustration (Pana, custom colors) — credit in footer.
@@ -119,7 +121,7 @@
 <section id="patches" x-data="scrollSpheres('left-to-right')" x-ref="stage" @scroll.window.passive="onScroll" @resize.window="onResize" class="relative py-16 sm:py-20">
   {% include 'partials/spheres.html' %}
   <div class="content-container relative">
-    <div class="flex flex-wrap items-end justify-between gap-4">
+    <div x-data="reveal('from-left')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="flex flex-wrap items-end justify-between gap-4 transition-all duration-700 ease-out">
       <div>
         <p class="eyebrow">Featured Patches</p>
         <h2 class="section-title mt-3">Stories carved into the map</h2>
@@ -130,7 +132,7 @@
 
     <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       <!-- Patch card 1 -->
-      <article class="card-paper group p-8 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+      <article x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper group p-8 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
         <div class="blob -right-10 -top-10 size-40 bg-forest-300/40" aria-hidden="true"></div>
         <div class="blob -bottom-12 -left-10 size-36 bg-brass-300/30" aria-hidden="true"></div>
 
@@ -166,7 +168,7 @@
         </div>
       </article>
       <!-- Patch card 2 -->
-      <article class="card-paper group p-8 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+      <article x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper group p-8 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
         <div class="blob -left-10 -top-10 size-40 bg-brass-300/40" aria-hidden="true"></div>
         <div class="blob -bottom-12 -right-10 size-36 bg-forest-300/30" aria-hidden="true"></div>
 
@@ -203,7 +205,7 @@
       </article>
 
       <!-- Patch card 3 -->
-      <article class="card-paper group p-8 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl md:col-span-2 lg:col-span-1">
+      <article x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper group p-8 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl md:col-span-2 lg:col-span-1">
         <div class="blob -right-10 -top-10 size-40 bg-forest-300/40" aria-hidden="true"></div>
         <div class="blob -bottom-12 -left-10 size-36 bg-brass-300/30" aria-hidden="true"></div>
 
@@ -249,7 +251,7 @@
   {% include 'partials/spheres.html' with variant='b' %}
   <div class="content-container">
     <div class="grid items-center gap-12 lg:grid-cols-2">
-      <div>
+      <div x-data="reveal('from-right')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="transition-all duration-700 ease-out">
         <p class="eyebrow">Vision</p>
         <h2 class="section-title mt-3">What is Patchland?</h2>
         <p class="mt-4 text-lg leading-relaxed text-ink-soft">
@@ -288,22 +290,22 @@
       </div>
 
       <div class="grid gap-6 sm:grid-cols-2">
-        <div class="card-paper p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+        <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
           <span class="icon-badge mx-auto">{% include 'partials/icon.html' with name='arrows-pointing-out' class='size-6' %}</span>
           <p class="mt-4 font-display text-4xl font-bold text-forest-900">1 m²</p>
           <p class="mt-1 text-sm uppercase tracking-widest text-ink-soft">is enough to found a Patch</p>
         </div>
-        <div class="card-paper p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+        <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
           <span class="icon-badge mx-auto">{% include 'partials/icon.html' with name='plus-circle' class='size-6' %}</span>
           <p class="mt-4 font-display text-4xl font-bold text-forest-900">One at a time</p>
           <p class="mt-1 text-sm uppercase tracking-widest text-ink-soft">the nation never grows by decree</p>
         </div>
-        <div class="card-paper p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+        <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
           <span class="icon-badge mx-auto">{% include 'partials/icon.html' with name='map' class='size-6' %}</span>
           <p class="mt-4 font-display text-4xl font-bold text-forest-900">Everywhere</p>
           <p class="mt-1 text-sm uppercase tracking-widest text-ink-soft">gardens, yards and balconies</p>
         </div>
-        <div class="card-paper p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+        <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-8 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
           <span class="icon-badge mx-auto">{% include 'partials/icon.html' with name='book-open' class='size-6' %}</span>
           <p class="mt-4 font-display text-4xl font-bold text-forest-900">A story</p>
           <p class="mt-1 text-sm uppercase tracking-widest text-ink-soft">for every single Patch</p>
@@ -319,7 +321,7 @@
     <div class="relative overflow-hidden rounded-tl-[3rem] rounded-br-[3rem] rounded-tr-sm rounded-bl-sm border border-brass-300/60 bg-parchment-50 shadow-sm">
       <div class="blob -left-10 -top-10 size-48 bg-forest-300/40" aria-hidden="true"></div>
 
-      <div class="relative grid items-center gap-8 p-8 sm:p-12 lg:grid-cols-[1.1fr_0.9fr]">
+      <div x-data="reveal('from-right')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="relative grid items-center gap-8 p-8 sm:p-12 lg:grid-cols-[1.1fr_0.9fr] transition-all duration-700 ease-out">
         <div>
           <p class="eyebrow">A Patch begins with a square meter</p>
           <h3 class="mt-3 font-display text-3xl font-semibold text-forest-900">Any garden, yard or balcony can join</h3>
@@ -348,25 +350,27 @@
      ============================================================ -->
 <section class="relative bg-parchment-200/70 py-16 sm:py-20">
   <div class="content-container">
-    <p class="eyebrow">Objectives</p>
-    <h2 class="section-title mt-3">What we are building together</h2>
+    <div x-data="reveal('from-left')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="transition-all duration-700 ease-out">
+      <p class="eyebrow">Objectives</p>
+      <h2 class="section-title mt-3">What we are building together</h2>
+    </div>
     <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-      <div class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
         <span class="icon-badge">{% include 'partials/icon.html' with name='flag' class='size-5' %}</span>
         <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">A distributed nation</h3>
         <p class="mt-2 text-sm text-ink-soft">Build the world's largest distributed symbolic nation.</p>
       </div>
-      <div class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
         <span class="icon-badge">{% include 'partials/icon.html' with name='heart' class='size-5' %}</span>
         <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Connect people</h3>
         <p class="mt-2 text-sm text-ink-soft">Bring people together through meaningful places.</p>
       </div>
-      <div class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
         <span class="icon-badge">{% include 'partials/icon.html' with name='paper-airplane' class='size-5' %}</span>
         <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Exploration &amp; tourism</h3>
         <p class="mt-2 text-sm text-ink-soft">Encourage travel between Patchland citizens.</p>
       </div>
-      <div class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
         <span class="icon-badge">{% include 'partials/icon.html' with name='archive-box' class='size-5' %}</span>
         <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Preserve history</h3>
         <p class="mt-2 text-sm text-ink-soft">Keep the story of every single Patch alive.</p>
@@ -384,35 +388,37 @@
 <section x-data="scrollSpheres('left-to-right')" x-ref="stage" @scroll.window.passive="onScroll" @resize.window="onResize" class="relative py-16 sm:py-20">
   {% include 'partials/spheres.html' %}
   <div class="content-container">
-    <p class="eyebrow">Core Principles</p>
-    <h2 class="section-title mt-3">The values of the nation</h2>
+    <div x-data="reveal('from-left')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="transition-all duration-700 ease-out">
+      <p class="eyebrow">Core Principles</p>
+      <h2 class="section-title mt-3">The values of the nation</h2>
+    </div>
     <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      <div class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
         <span class="icon-badge">{% include 'partials/icon.html' with name='plus-circle' class='size-5' %}</span>
         <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">One Patch at a time</h3>
         <p class="mt-2 text-ink-soft">The nation grows patch by patch, never by decree.</p>
       </div>
-      <div class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
         <span class="icon-badge">{% include 'partials/icon.html' with name='book-open' class='size-5' %}</span>
         <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Every Patch has a story</h3>
         <p class="mt-2 text-ink-soft">Even a single sentence turns a square meter into a memory.</p>
       </div>
-      <div class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
         <span class="icon-badge">{% include 'partials/icon.html' with name='user-group' class='size-5' %}</span>
         <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Every citizen contributes equally</h3>
         <p class="mt-2 text-ink-soft">One Patch, one Custodian, one equal voice.</p>
       </div>
-      <div class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
         <span class="icon-badge">{% include 'partials/icon.html' with name='globe-alt' class='size-5' %}</span>
         <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Distributed across the world</h3>
         <p class="mt-2 text-ink-soft">There is no centre: the territory lives wherever its citizens do.</p>
       </div>
-      <div class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
         <span class="icon-badge">{% include 'partials/icon.html' with name='heart' class='size-5' %}</span>
         <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Community before territory</h3>
         <p class="mt-2 text-ink-soft">People and places matter more than lines on a map.</p>
       </div>
-      <a href="{% url 'home:manifesto' %}" class="group flex flex-col justify-center rounded-tl-3xl rounded-br-3xl rounded-tr-sm rounded-bl-sm border-2 border-dashed border-brass-400/70 bg-brass-100/40 p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:bg-brass-100 hover:shadow-xl">
+      <a href="{% url 'home:manifesto' %}" x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="group flex flex-col justify-center rounded-tl-3xl rounded-br-3xl rounded-tr-sm rounded-bl-sm border-2 border-dashed border-brass-400/70 bg-brass-100/40 p-6 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:bg-brass-100 hover:shadow-xl">
         <p class="font-display text-xl font-semibold text-forest-900 group-hover:underline">Read the full manifesto</p>
         <p class="mt-2 text-sm text-ink-soft">Vision, principles, objectives and the community constitution.</p>
         <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-brass-700">
@@ -431,12 +437,14 @@
      ============================================================ -->
 <section class="relative bg-forest-900 py-24 text-parchment-100">
   <div class="content-container">
-    <p class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brass-300 sm:tracking-[0.35em]">Requirements</p>
-    <h2 class="font-display text-3xl font-semibold tracking-wide text-parchment-100 sm:text-4xl">Founding a Patch</h2>
-    <p class="mt-3 max-w-3xl text-parchment-100/75">Seven simple rules turn a square meter of the world into a piece of the nation.</p>
+    <div x-data="reveal('from-left')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="transition-all duration-700 ease-out">
+      <p class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-brass-300 sm:tracking-[0.35em]">Requirements</p>
+      <h2 class="font-display text-3xl font-semibold tracking-wide text-parchment-100 sm:text-4xl">Founding a Patch</h2>
+      <p class="mt-3 max-w-3xl text-parchment-100/75">Seven simple rules turn a square meter of the world into a piece of the nation.</p>
+    </div>
 
     <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      <div class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
         <div class="flex items-center gap-3">
           <span class="flex size-8 items-center justify-center rounded-full bg-brass-500 font-display text-sm font-bold text-forest-950">1</span>
           {% include 'partials/icon.html' with name='home' class='size-6 text-brass-300' %}
@@ -445,7 +453,7 @@
         <p class="mt-2 text-sm text-parchment-100/70">The Custodian must legitimately have availability — ownership, rental or permission.</p>
       </div>
 
-      <div class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
         <div class="flex items-center gap-3">
           <span class="flex size-8 items-center justify-center rounded-full bg-brass-500 font-display text-sm font-bold text-forest-950">2</span>
           {% include 'partials/icon.html' with name='arrows-pointing-out' class='size-6 text-brass-300' %}
@@ -454,7 +462,7 @@
         <p class="mt-2 text-sm text-parchment-100/70">At least 1 square meter (1 m²).</p>
       </div>
 
-      <div class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
         <div class="flex items-center gap-3">
           <span class="flex size-8 items-center justify-center rounded-full bg-brass-500 font-display text-sm font-bold text-forest-950">3</span>
           {% include 'partials/icon.html' with name='map-pin' class='size-6 text-brass-300' %}
@@ -463,7 +471,7 @@
         <p class="mt-2 text-sm text-parchment-100/70">The Patch must have clearly identifiable limits.</p>
       </div>
 
-      <div class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
         <div class="flex items-center gap-3">
           <span class="flex size-8 items-center justify-center rounded-full bg-brass-500 font-display text-sm font-bold text-forest-950">4</span>
           {% include 'partials/icon.html' with name='pencil' class='size-6 text-brass-300' %}
@@ -471,7 +479,7 @@
         <h3 class="mt-4 font-display text-lg font-semibold text-parchment-100">Official name</h3>
         <p class="mt-2 text-sm text-parchment-100/70">Every Patch has a unique name, such as Raven Grove or Aurora Garden.</p>
       </div>
-      <div class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
         <div class="flex items-center gap-3">
           <span class="flex size-8 items-center justify-center rounded-full bg-brass-500 font-display text-sm font-bold text-forest-950">5</span>
           {% include 'partials/icon.html' with name='clipboard-document-list' class='size-6 text-brass-300' %}
@@ -480,7 +488,7 @@
         <p class="mt-2 text-sm text-parchment-100/70">Name, Custodian, coordinates, area, foundation date, province, photos and a short history.</p>
       </div>
 
-      <div class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
         <div class="flex items-center gap-3">
           <span class="flex size-8 items-center justify-center rounded-full bg-brass-500 font-display text-sm font-bold text-forest-950">6</span>
           {% include 'partials/icon.html' with name='check-badge' class='size-6 text-brass-300' %}
@@ -489,7 +497,7 @@
         <p class="mt-2 text-sm text-parchment-100/70">A unique seal, registered in the National Archive, used to stamp visitors' passports.</p>
       </div>
 
-      <div class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10 md:col-span-2 lg:col-span-1">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-tl-2xl rounded-br-2xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10 md:col-span-2 lg:col-span-1">
         <div class="flex items-center gap-3">
           <span class="flex size-8 items-center justify-center rounded-full bg-brass-500 font-display text-sm font-bold text-forest-950">7</span>
           {% include 'partials/icon.html' with name='book-open' class='size-6 text-brass-300' %}
@@ -510,7 +518,7 @@
 <section x-data="scrollSpheres('right-to-left')" x-ref="stage" @scroll.window.passive="onScroll" @resize.window="onResize" class="relative py-16 sm:py-20">
   {% include 'partials/spheres.html' with variant='b' %}
   <div class="content-container grid gap-6 lg:grid-cols-3">
-    <div class="card-paper p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+    <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
       <span class="icon-badge">{% include 'partials/icon.html' with name='user-circle' class='size-6' %}</span>
       <h3 class="mt-4 font-display text-2xl font-semibold text-forest-900">The Custodian</h3>
       <p class="mt-2 text-ink-soft">Every Patch has a Custodian responsible for:</p>
@@ -530,7 +538,7 @@
       </ul>
     </div>
 
-    <div class="relative overflow-hidden rounded-tl-3xl rounded-br-3xl rounded-tr-sm rounded-bl-sm bg-forest-900 p-8 text-parchment-100 lg:col-span-2">
+    <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="relative overflow-hidden rounded-tl-3xl rounded-br-3xl rounded-tr-sm rounded-bl-sm bg-forest-900 p-8 text-parchment-100 lg:col-span-2">
       <div class="blob -right-16 -top-16 size-56 bg-brass-500/25" aria-hidden="true"></div>
       <div class="relative flex flex-wrap items-center justify-between gap-6">
         <div class="max-w-md">
@@ -562,7 +570,7 @@
     <div class="blob -left-16 top-10 size-64 bg-brass-300/30" aria-hidden="true"></div>
     <div class="blob -bottom-16 -right-16 size-72 bg-forest-300/30" aria-hidden="true"></div>
 
-    <div class="relative grid items-center gap-12 lg:grid-cols-2">
+    <div x-data="reveal('from-right')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="relative grid items-center gap-12 lg:grid-cols-2 transition-all duration-700 ease-out">
       <!-- Parchment passport card -->
       <div>
         <div class="relative overflow-hidden rounded-tl-[2.5rem] rounded-br-[2.5rem] rounded-tr-md rounded-bl-md border border-brass-300/60 bg-parchment-50 p-8 shadow-sm sm:p-10">
@@ -626,17 +634,17 @@
     <div class="relative mt-14">
       <p class="mb-6 text-center text-sm font-semibold uppercase tracking-widest text-ink-faint">Every Patch sets its own access</p>
       <div class="grid gap-5 sm:grid-cols-3">
-        <div class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+        <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
           <span class="icon-badge mx-auto">{% include 'partials/icon.html' with name='globe-alt' class='size-6' %}</span>
           <h4 class="mt-3 font-display text-lg font-semibold text-forest-900">Public</h4>
           <p class="mt-1 text-xs text-ink-soft">Open to every visitor</p>
         </div>
-        <div class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+        <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
           <span class="icon-badge mx-auto">{% include 'partials/icon.html' with name='envelope' class='size-6' %}</span>
           <h4 class="mt-3 font-display text-lg font-semibold text-forest-900">On request</h4>
           <p class="mt-1 text-xs text-ink-soft">Visit by appointment</p>
         </div>
-        <div class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
+        <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-xl">
           <span class="icon-badge mx-auto">{% include 'partials/icon.html' with name='lock-closed' class='size-6' %}</span>
           <h4 class="mt-3 font-display text-lg font-semibold text-forest-900">Private</h4>
           <p class="mt-1 text-xs text-ink-soft">Reserved to the Custodian</p>
@@ -654,7 +662,7 @@
      ============================================================ -->
 <section id="world-map" x-data="scrollSpheres('left-to-right')" x-ref="stage" @scroll.window.passive="onScroll" @resize.window="onResize" class="relative py-16 sm:py-20">
   {% include 'partials/spheres.html' %}
-  <div class="content-container grid items-center gap-12 lg:grid-cols-2">
+  <div x-data="reveal('from-left')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="content-container grid items-center gap-12 lg:grid-cols-2 transition-all duration-700 ease-out">
     <!-- Visual: map panel -->
     <div class="relative order-2 lg:order-1">
       <div class="relative overflow-hidden rounded-tl-[3rem] rounded-br-[3rem] rounded-tr-sm rounded-bl-sm bg-forest-900 p-8 text-center sm:p-10">
@@ -724,14 +732,14 @@
   <div class="blob -bottom-24 -right-16 size-72 bg-forest-500/30" aria-hidden="true"></div>
 
   <div class="content-container relative grid gap-6 md:grid-cols-2">
-    <div class="rounded-tl-3xl rounded-br-3xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
+    <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-tl-3xl rounded-br-3xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
       <span class="icon-badge border-brass-400/40 bg-brass-400/10 text-brass-300">
         {% include 'partials/icon.html' with name='identification' class='size-6' %}
       </span>
       <h3 class="mt-4 font-display text-2xl font-semibold text-parchment-100">Citizenship</h3>
       <p class="mt-2 text-parchment-100/75">Anyone who registers at least one Patch becomes a citizen of Patchland.</p>
     </div>
-    <div class="rounded-tl-3xl rounded-br-3xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
+    <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-tl-3xl rounded-br-3xl rounded-tr-sm rounded-bl-sm border border-parchment-100/15 bg-parchment-100/5 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-brass-400/40 hover:bg-parchment-100/10">
       <span class="icon-badge border-brass-400/40 bg-brass-400/10 text-brass-300">
         {% include 'partials/icon.html' with name='trophy' class='size-6' %}
       </span>
@@ -750,37 +758,37 @@
 <section x-data="scrollSpheres('right-to-left')" x-ref="stage" @scroll.window.passive="onScroll" @resize.window="onResize" class="relative py-16 sm:py-20">
   {% include 'partials/spheres.html' with variant='b' %}
   <div class="content-container">
-    <div class="text-center">
+    <div x-data="reveal('from-right')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="text-center transition-all duration-700 ease-out">
       <p class="eyebrow">Collectibles</p>
       <h2 class="section-title mt-3">Symbols of the nation</h2>
       <p class="mt-3 text-ink-soft">A growing family of symbolic collectibles, from the passport to coats of arms.</p>
     </div>
     <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-7">
-      <div class="card-paper p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl">
         <span class="mx-auto flex size-10 items-center justify-center text-forest-700">{% include 'partials/icon.html' with name='book-open' class='size-7' %}</span>
         <p class="mt-3 text-sm font-medium text-forest-900">Passport</p>
       </div>
-      <div class="card-paper p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl">
         <span class="mx-auto flex size-10 items-center justify-center text-forest-700">{% include 'partials/icon.html' with name='currency-dollar' class='size-7' %}</span>
         <p class="mt-3 text-sm font-medium text-forest-900">Coins</p>
       </div>
-      <div class="card-paper p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl">
         <span class="mx-auto flex size-10 items-center justify-center text-forest-700">{% include 'partials/icon.html' with name='square-2-stack' class='size-7' %}</span>
         <p class="mt-3 text-sm font-medium text-forest-900">Stamps</p>
       </div>
-      <div class="card-paper p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl">
         <span class="mx-auto flex size-10 items-center justify-center text-forest-700">{% include 'partials/icon.html' with name='check-badge' class='size-7' %}</span>
         <p class="mt-3 text-sm font-medium text-forest-900">Seals</p>
       </div>
-      <div class="card-paper p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl">
         <span class="mx-auto flex size-10 items-center justify-center text-forest-700">{% include 'partials/icon.html' with name='document-text' class='size-7' %}</span>
         <p class="mt-3 text-sm font-medium text-forest-900">Certificates</p>
       </div>
-      <div class="card-paper p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl">
         <span class="mx-auto flex size-10 items-center justify-center text-forest-700">{% include 'partials/icon.html' with name='flag' class='size-7' %}</span>
         <p class="mt-3 text-sm font-medium text-forest-900">Flags</p>
       </div>
-      <div class="card-paper p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-5 text-center transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl">
         <span class="mx-auto flex size-10 items-center justify-center text-forest-700">{% include 'partials/icon.html' with name='shield-check' class='size-7' %}</span>
         <p class="mt-3 text-sm font-medium text-forest-900">Coats of arms</p>
       </div>
@@ -795,7 +803,7 @@
      Centered parchment band.
      ============================================================ -->
 <section class="relative bg-parchment-200/70 py-16 text-center sm:py-20">
-  <div class="content-container">
+  <div x-data="reveal('from-bottom')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="content-container transition-all duration-700 ease-out">
     <span class="icon-badge mx-auto">{% include 'partials/icon.html' with name='scale' class='size-6' %}</span>
     <p class="eyebrow mt-4">Constitution</p>
     <h2 class="section-title mt-3">A constitution for an imaginary nation</h2>
@@ -812,7 +820,7 @@
 <section x-data="scrollSpheres('left-to-right')" x-ref="stage" @scroll.window.passive="onScroll" @resize.window="onResize" class="relative py-16 sm:py-20">
   {% include 'partials/spheres.html' %}
   <div class="content-container">
-    <div class="flex flex-wrap items-start justify-between gap-6">
+    <div x-data="reveal('from-left')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="flex flex-wrap items-start justify-between gap-6 transition-all duration-700 ease-out">
       <div>
         <p class="eyebrow">Future Ideas</p>
         <h2 class="section-title mt-3">What comes next</h2>
@@ -820,16 +828,16 @@
       <span class="icon-badge">{% include 'partials/icon.html' with name='light-bulb' class='size-6' %}</span>
     </div>
     <div class="mt-8 flex flex-wrap gap-3">
-      <span class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Missions</span>
-      <span class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Badges</span>
-      <span class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Historical archive</span>
-      <span class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Conservation levels</span>
-      <span class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Twin Patches</span>
-      <span class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Annual Patch Day</span>
-      <span class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Interactive world map</span>
-      <span class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Digital passport</span>
-      <span class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Leaderboards</span>
-      <span class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Community voting</span>
+      <span x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Missions</span>
+      <span x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Badges</span>
+      <span x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Historical archive</span>
+      <span x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Conservation levels</span>
+      <span x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Twin Patches</span>
+      <span x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Annual Patch Day</span>
+      <span x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Interactive world map</span>
+      <span x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Digital passport</span>
+      <span x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Leaderboards</span>
+      <span x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="rounded-full border border-brass-300/70 bg-brass-100/50 px-4 py-1.5 text-sm font-medium text-forest-800 transition-all duration-300 hover:-translate-y-1 hover:bg-brass-100">Community voting</span>
     </div>
   </div>
 </section>
@@ -841,7 +849,7 @@
      Brass band with wave top and bottom edges.
      ============================================================ -->
 <section class="relative bg-brass-500 py-16 sm:py-20">
-  <div class="content-container flex flex-col items-center justify-between gap-6 text-center sm:flex-row sm:text-left">
+  <div x-data="reveal('from-bottom')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="content-container flex flex-col items-center justify-between gap-6 text-center sm:flex-row sm:text-left transition-all duration-700 ease-out">
     <div>
       <p class="font-display text-2xl font-semibold text-forest-950 sm:text-3xl">One Patch. One Citizen. One World.</p>
       <p class="mt-1 text-forest-900/80">Read the full manifesto and join the nation.</p>
@@ -863,7 +871,7 @@
 <section id="statistics" x-data="scrollSpheres('right-to-left')" x-ref="stage" @scroll.window.passive="onScroll" @resize.window="onResize" class="relative py-16 sm:py-20">
   {% include 'partials/spheres.html' with variant='b' %}
   <div class="content-container">
-    <div class="flex flex-wrap items-end justify-between gap-4">
+    <div x-data="reveal('from-right')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="flex flex-wrap items-end justify-between gap-4 transition-all duration-700 ease-out">
       <div>
         <h2 class="section-title">Nation Statistics</h2>
         <p class="mt-3 max-w-3xl text-ink-soft">Live figures from the Patchland archive, updated in real time.</p>
@@ -878,19 +886,19 @@
     </div>
 
     <div id="nation-stats" class="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
-      <div class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl" data-stat="total_area_m2">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl" data-stat="total_area_m2">
         <p class="flex flex-wrap items-baseline justify-center gap-x-1 font-display text-2xl font-bold leading-tight text-forest-900 sm:text-3xl"><span data-value class="tabular-nums whitespace-nowrap" title="{{ stats.total_area_m2|intcomma }}">{{ stats.total_area_m2|compact_int }}</span> <span class="text-lg">m²</span></p>
         <p class="mt-1 text-xs uppercase tracking-widest text-ink-soft">Territory</p>
       </div>
-      <div class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl" data-stat="custodians">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl" data-stat="custodians">
         <p class="font-display text-2xl font-bold text-forest-900 sm:text-3xl" data-value>{{ stats.custodians|intcomma }}</p>
         <p class="mt-1 text-xs uppercase tracking-widest text-ink-soft">Custodians</p>
       </div>
-      <div class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl" data-stat="provinces">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl" data-stat="provinces">
         <p class="font-display text-2xl font-bold text-forest-900 sm:text-3xl" data-value>{{ stats.provinces|intcomma }}</p>
         <p class="mt-1 text-xs uppercase tracking-widest text-ink-soft">Provinces</p>
       </div>
-      <div class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl" data-stat="total_patches">
+      <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-paper p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl" data-stat="total_patches">
         <p class="font-display text-2xl font-bold text-forest-900 sm:text-3xl" data-value>{{ stats.total_patches|intcomma }}</p>
         <p class="mt-1 text-xs uppercase tracking-widest text-ink-soft">Patches</p>
       </div>
@@ -992,6 +1000,81 @@
       // easeInOutSine — smooth, monotonic, never overshoots.
       easeInOutSine(x) {
         return -(Math.cos(Math.PI * x) - 1) / 2;
+      },
+    }));
+
+    // =======================================================================
+    // reveal — scroll-triggered entrance animation (fade + directional slide)
+    // powered by IntersectionObserver (no external library).
+    //
+    // USAGE
+    // -----
+    //   x-data="reveal('from-top')"                    → drops in from above
+    //   x-data="reveal('from-bottom')"                 → rises from below
+    //   x-data="reveal('from-left')"                   → slides in from the left
+    //   x-data="reveal('from-right')"                  → slides in from the right
+    //   x-data="reveal('from-bottom', { stagger: true })"
+    //                                                  → auto-delay by sibling
+    //                                                    index (90ms steps)
+    //   x-data="reveal('from-top', { delay: 200 })"    → fixed delay (ms)
+    //
+    //   Each element also needs:
+    //     :class="visible ? shownClass : hiddenClass"
+    //     :style="delayStyle"
+    //     class="… transition-all duration-700 ease-out"
+    //   (cards that already have `transition-all duration-300` reuse it).
+    //
+    // Behaviour:
+    //   - animates ONCE (IntersectionObserver is disconnected after trigger);
+    //   - the stagger delay is cleared after the entrance so hover transitions
+    //     are never left laggy;
+    //   - `prefers-reduced-motion` keeps everything visible immediately;
+    //   - without Alpine the hidden classes never apply → content stays visible.
+    // =======================================================================
+    Alpine.data('reveal', (direction = 'from-bottom', options = {}) => ({
+      visible: false,
+      _delay: 0,
+
+      init() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          this.visible = true;
+          return;
+        }
+
+        // Stagger: delay is derived from the element's index among its siblings.
+        if (options.stagger) {
+          const siblings = Array.from(this.$el.parentElement.children);
+          this._delay = Math.max(0, siblings.indexOf(this.$el)) * (options.step || 90);
+        } else {
+          this._delay = options.delay || 0;
+        }
+
+        const io = new IntersectionObserver((entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            this.visible = true;
+            io.disconnect();
+            // Clear the entrance delay so hover transitions stay responsive.
+            window.setTimeout(() => { this._delay = 0; }, this._delay + 800);
+          }
+        }, { threshold: options.threshold ?? 0.15, rootMargin: '0px 0px -8% 0px' });
+        io.observe(this.$el);
+      },
+
+      get hiddenClass() {
+        return {
+          'from-top': 'opacity-0 -translate-y-10',
+          'from-bottom': 'opacity-0 translate-y-10',
+          'from-left': 'opacity-0 -translate-x-10',
+          'from-right': 'opacity-0 translate-x-10',
+        }[direction] || 'opacity-0 translate-y-10';
+      },
+
+      get shownClass() {
+        return 'opacity-100 translate-x-0 translate-y-0';
+      },
+
+      get delayStyle() {
+        return this._delay ? 'transition-delay:' + this._delay + 'ms' : '';
       },
     }));
   });
