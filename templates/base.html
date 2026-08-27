@@ -24,6 +24,9 @@
   {% endblock extra_css %}
 
   {% block corejs %}
+  <!-- reveal.js MUST load before Alpine: it registers the `alpine:init`
+       listener that defines the `reveal` component. Defer preserves order. -->
+  <script defer src="{% static 'js/reveal.js' %}"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
   {% endblock corejs %}
 </head>
@@ -39,8 +42,6 @@
   </main>
 
   {% include 'partials/footer.html' %}
-
-  <script src="{% static 'js/reveal.js' %}" defer></script>
 
   {% block postloadjs %}
   {% endblock postloadjs %}

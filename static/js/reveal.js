@@ -8,6 +8,11 @@
  * app in this project. It is loaded globally from `templates/base.html`, so
  * any app that extends `base.html` inherits it automatically.
  *
+ * IMPORTANT — load order: this file must load BEFORE Alpine's CDN script
+ * (see `templates/base.html` → `{% block corejs %}`), so the `alpine:init`
+ * listener below is registered before Alpine starts. Loading it after Alpine
+ * would break every fade-in on the site.
+ *
  * USAGE
  * -----
  *   x-data="reveal('from-top')"                    → drops in from above
@@ -35,7 +40,10 @@
 (function () {
   "use strict";
 
-  document.addEventListener("alpine:init", () => {
+  function registerReveal() {
+    // Idempotent: registering the same name again just overwrites it.
+    if (typeof Alpine === "undefined") return;
+
     Alpine.data("reveal", (direction = "from-bottom", options = {}) => ({
       visible: false,
       _delay: 0,
@@ -87,5 +95,15 @@
         return this._delay ? "transition-delay:" + this._delay + "ms" : "";
       },
     }));
-  });
+  }
+
+  // Preferred path — this file is loaded BEFORE Alpine's CDN script (see
+  // templates/base.html → {% block corejs %}), so this listener is registered
+  // before Alpine dispatches `alpine:init` when it starts. Loading it after
+  // Alpine would break every fade-in on the site.
+  document.addEventListener("alpine:init", registerReveal);
+
+  // Defensive fallback: if this file ever runs after Alpine is already present
+  // (but before Alpine started), register the component immediately.
+  registerReveal();
 })();
