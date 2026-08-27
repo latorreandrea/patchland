@@ -3,39 +3,26 @@
 {% block title %}Passport — Patchland{% endblock %}
 
 {% block content %}
-<!-- Hero -->
-<section class="relative overflow-hidden bg-forest-900 text-parchment-100">
-  <div class="map-grid" aria-hidden="true"></div>
-  <div class="content-container relative pt-6 pb-20 text-center md:py-24">
-    {% include 'partials/logo.html' %}
-
-    <span class="icon-badge mx-auto border-brass-400/40 bg-brass-400/10 text-brass-300">
-      {% include 'partials/icon.html' with name='book-open' class='size-6' %}
-    </span>
-    <p class="mb-3 mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-brass-300 sm:tracking-[0.35em]">Passport &amp; Seals</p>
-    <h1 class="font-display text-5xl font-semibold leading-tight sm:text-6xl">Your Patchland Passport</h1>
-    <p class="mx-auto mt-5 max-w-2xl text-lg text-parchment-100/85">
-      Collect Patch stamps, commemorative events and every province you visit.
-    </p>
-  </div>
-</section>
+{% include 'partials/page-hero.html' with icon='book-open' eyebrow='Passport &amp; Seals' title='Your Patchland Passport' subtitle='Collect Patch stamps, commemorative events and every province you visit.' %}
 
 <!-- Passport features -->
 <section class="content-container py-16 sm:py-20">
-  <p class="eyebrow">The Passport</p>
-  <h2 class="section-title mt-3">One citizen, one passport</h2>
+  <div x-data="reveal('from-left')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="transition-all duration-700 ease-out">
+    <p class="eyebrow">The Passport</p>
+    <h2 class="section-title mt-3">One citizen, one passport</h2>
+  </div>
   <div class="mt-10 grid gap-6 md:grid-cols-3">
-    <div class="card-parchment rounded-xl p-6">
+    <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-parchment rounded-xl p-6 transition-all duration-700 ease-out">
       <span class="icon-badge">{% include 'partials/icon.html' with name='check-badge' class='size-5' %}</span>
       <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Patch stamps</h3>
       <p class="mt-2 text-sm text-ink-soft">Every visit leaves its mark — stamped by the Custodian's official seal.</p>
     </div>
-    <div class="card-parchment rounded-xl p-6">
+    <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-parchment rounded-xl p-6 transition-all duration-700 ease-out">
       <span class="icon-badge">{% include 'partials/icon.html' with name='sparkles' class='size-5' %}</span>
       <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Commemorative events</h3>
       <p class="mt-2 text-sm text-ink-soft">Special seals for the moments that make the nation's history.</p>
     </div>
-    <div class="card-parchment rounded-xl p-6">
+    <div x-data="reveal('from-bottom', { stagger: true })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="card-parchment rounded-xl p-6 transition-all duration-700 ease-out">
       <span class="icon-badge">{% include 'partials/icon.html' with name='globe-europe-africa' class='size-5' %}</span>
       <h3 class="mt-4 font-display text-xl font-semibold text-forest-900">Provinces visited</h3>
       <p class="mt-2 text-sm text-ink-soft">Travel between citizens and map your journey across the nation.</p>

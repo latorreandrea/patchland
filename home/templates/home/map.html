@@ -3,30 +3,16 @@
 {% block title %}World Map — Patchland{% endblock %}
 
 {% block content %}
-<!-- Hero -->
-<section class="relative overflow-hidden bg-forest-900 text-parchment-100">
-  <div class="map-grid" aria-hidden="true"></div>
-  <div class="blob -left-24 top-16 size-72 bg-brass-500/25" aria-hidden="true"></div>
-  <div class="content-container relative pt-6 pb-20 text-center md:py-24">
-    {% include 'partials/logo.html' %}
-
-    <span class="icon-badge mx-auto border-brass-400/40 bg-brass-400/10 text-brass-300">
-      {% include 'partials/icon.html' with name='globe-europe-africa' class='size-6' %}
-    </span>
-    <p class="mb-3 mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-brass-300 sm:tracking-[0.35em]">World Map</p>
-    <h1 class="font-display text-5xl font-semibold leading-tight sm:text-6xl">The Distributed Nation</h1>
-    <p class="mx-auto mt-5 max-w-2xl text-lg text-parchment-100/85">
-      Every registered Patch, plotted across the globe — no borders, just stories and squares.
-    </p>
-  </div>
-</section>
+{% include 'partials/page-hero.html' with icon='globe-europe-africa' eyebrow='World Map' title='The Distributed Nation' subtitle='Every registered Patch, plotted across the globe — no borders, just stories and squares.' %}
 
 <!-- Map panel -->
 <section class="content-container py-16 sm:py-20">
   <div class="card-paper p-6 sm:p-10">
-    <p class="eyebrow">Cartography</p>
-    <h2 class="section-title mt-3">One square meter at a time</h2>
-    <div class="map-grid relative mt-8 grid min-h-[20rem] place-items-center rounded-xl border border-brass-300/50 bg-forest-900">
+    <div x-data="reveal('from-left')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="transition-all duration-700 ease-out">
+      <p class="eyebrow">Cartography</p>
+      <h2 class="section-title mt-3">One square meter at a time</h2>
+    </div>
+    <div x-data="reveal('from-bottom', { delay: 100 })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="map-grid relative mt-8 grid min-h-[20rem] place-items-center rounded-xl border border-brass-300/50 bg-forest-900 transition-all duration-700 ease-out">
       <div class="relative text-center text-parchment-100">
         <span class="mx-auto block size-14 animate-float">{% include 'partials/icon.html' with name='globe-europe-africa' class='size-14 text-brass-300' %}</span>
         <p class="mt-4 font-display text-2xl italic text-brass-300">Ex multis, una terra.</p>

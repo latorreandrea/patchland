@@ -1,0 +1,48 @@
+{% comment %}
+  Patchland — reusable centered page hero (dark green) with entrance animation
+  and the animated wave divider on its bottom edge.
+
+  Usage:
+    {% include 'partials/page-hero.html' with icon='globe-europe-africa' eyebrow='World Map' title='The Distributed Nation' subtitle='Every registered Patch, plotted across the globe.' %}
+
+  Options (icon, eyebrow and title are expected):
+    - icon        : Heroicons outline name (see partials/icon.html).
+    - eyebrow     : small uppercase label above the title.
+    - title       : page title (h1).
+    - subtitle    : supporting paragraph (optional).
+    - extra       : raw HTML rendered after the subtitle (optional).
+    - title_class : extra Tailwind classes appended to the h1 (optional).
+    - no_divider  : any non-empty value removes the animated wave bottom edge.
+
+  The `reveal` entrance is a cascade of `from-top` slides (0/100/150/200/250/300ms)
+  matching the landing-page hero (see static/js/reveal.js).
+{% endcomment %}
+<section class="relative overflow-hidden bg-forest-900 text-parchment-100">
+  <div class="map-grid" aria-hidden="true"></div>
+  <div class="blob -left-24 top-16 size-72 bg-brass-500/25" aria-hidden="true"></div>
+  <div class="blob -bottom-24 -right-16 size-96 bg-forest-500/40" aria-hidden="true"></div>
+
+  <div class="content-container relative pt-6 pb-20 text-center md:py-24">
+    <div x-data="reveal('from-top')" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="transition-all duration-700 ease-out">
+      {% include 'partials/logo.html' %}
+    </div>
+
+    <div>
+      <span x-data="reveal('from-top', { delay: 100 })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="icon-badge mx-auto border-brass-400/40 bg-brass-400/10 text-brass-300 transition-all duration-700 ease-out">
+        {% include 'partials/icon.html' with name=icon class='size-6' %}
+      </span>
+      <p x-data="reveal('from-top', { delay: 150 })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="mb-3 mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-brass-300 transition-all duration-700 ease-out sm:tracking-[0.35em]">{{ eyebrow }}</p>
+      <h1 x-data="reveal('from-top', { delay: 200 })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="font-display text-5xl font-semibold leading-tight transition-all duration-700 ease-out sm:text-6xl {{ title_class|default:'' }}">{{ title }}</h1>
+      {% if subtitle %}
+      <p x-data="reveal('from-top', { delay: 250 })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="mx-auto mt-5 max-w-2xl text-lg text-parchment-100/85 transition-all duration-700 ease-out">{{ subtitle }}</p>
+      {% endif %}
+      {% if extra %}
+      <div x-data="reveal('from-top', { delay: 300 })" :class="visible ? shownClass : hiddenClass" :style="delayStyle" class="transition-all duration-700 ease-out">{{ extra }}</div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% if not no_divider %}
+{% include 'partials/divider.html' with fill='fill-forest-900' flip='1' %}
+{% endif %}
