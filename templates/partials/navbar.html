@@ -13,12 +13,11 @@
       { id: 'passport', label: 'Passport', href: '{% url "home:passport" %}' },
       { id: 'profile', label: 'Profile', href: '{% url "home:profile" %}' },
     ]
-  })"
-  x-cloak>
+  })">
 
   <!-- ============ Mobile: floating bottom tab bar ============ -->
   <nav class="fixed bottom-4 left-4 right-4 z-50 md:hidden" aria-label="Primary navigation">
-    <div class="relative mx-auto max-w-md rounded-2xl border border-ink/15 bg-parchment-50/95 p-2 shadow-xl shadow-ink/15 backdrop-blur-xl">
+    <div class="relative mx-auto max-w-md touch-manipulation rounded-2xl border border-ink/15 bg-parchment-50 p-2 shadow-xl shadow-ink/15">
       <div class="relative flex items-center">
         <!-- Notched animated indicator -->
         <div
@@ -27,49 +26,119 @@
           :style="'width:' + offset + 'px;' + indicatorStyle()"
           aria-hidden="true"></div>
 
-        <template x-for="(link, index) in links" :key="link.id">
-          <a
-            :href="link.href"
-            :aria-label="link.label"
-            @click="go(link, $event)"
-            class="nav-cell group relative z-10 flex h-12 flex-1 select-none items-center justify-center outline-none"
-            :class="index === 2 ? '-translate-y-4' : ''">
+        <!-- Home -->
+        <a
+          href="{% url 'home:index' %}"
+          aria-label="Home"
+          @click="go(links[0], $event)"
+          class="nav-cell group relative z-10 flex h-12 flex-1 select-none items-center justify-center outline-none">
+          <span class="relative grid size-12 place-items-center transition-all duration-300">
+            <svg
+              :class="[activeLink === 0 ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100', 'text-ink/45']"
+              class="col-start-1 row-start-1 size-6 transition-opacity duration-300"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+              x-html="icon(0, false)"></svg>
+            <svg
+              :class="activeLink === 0 ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'"
+              class="col-start-1 row-start-1 size-6 text-forest-950 transition-opacity duration-300"
+              fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+              x-html="icon(0, true)"></svg>
+          </span>
+        </a>
 
-            <span
-              class="relative grid size-12 place-items-center transition-all duration-300"
-              :class="index === 2
-                ? (activeLink === index
-                    ? 'rounded-full bg-brass-400 shadow-lg shadow-brass-500/40 ring-4 ring-brass-300/50'
-                    : 'rounded-full bg-forest-800 shadow-lg shadow-ink/20 ring-2 ring-brass-400/70')
-                : ''">
+        <!-- Map -->
+        <a
+          href="{% url 'home:map' %}"
+          aria-label="Map"
+          @click="go(links[1], $event)"
+          class="nav-cell group relative z-10 flex h-12 flex-1 select-none items-center justify-center outline-none">
+          <span class="relative grid size-12 place-items-center transition-all duration-300">
+            <svg
+              :class="[activeLink === 1 ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100', 'text-ink/45']"
+              class="col-start-1 row-start-1 size-6 transition-opacity duration-300"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+              x-html="icon(1, false)"></svg>
+            <svg
+              :class="activeLink === 1 ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'"
+              class="col-start-1 row-start-1 size-6 text-forest-950 transition-opacity duration-300"
+              fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+              x-html="icon(1, true)"></svg>
+          </span>
+        <!-- Found a Patch (raised) -->
+        <a
+          href="{% url 'home:register' %}"
+          aria-label="Found a Patch"
+          @click="go(links[2], $event)"
+          class="nav-cell group relative z-10 flex h-12 flex-1 select-none items-center justify-center outline-none -translate-y-4">
+          <span
+            class="relative grid size-12 place-items-center transition-all duration-300"
+            :class="activeLink === 2
+              ? 'rounded-full bg-brass-400 shadow-lg shadow-brass-500/40 ring-4 ring-brass-300/50'
+              : 'rounded-full bg-forest-800 shadow-lg shadow-ink/20 ring-2 ring-brass-400/70'">
+            <svg
+              :class="[activeLink === 2 ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100', 'text-brass-300']"
+              class="col-start-1 row-start-1 size-6 transition-opacity duration-300"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+              x-html="icon(2, false)"></svg>
+            <svg
+              :class="activeLink === 2 ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'"
+              class="col-start-1 row-start-1 size-6 text-forest-950 transition-opacity duration-300"
+              fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+              x-html="icon(2, true)"></svg>
+          </span>
+        </a>
 
-              <!-- Inactive (stroke / outline) -->
-              <svg
-                :class="[
-                  activeLink === index ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100 group-hover:opacity-40',
-                  index === 2 ? 'text-brass-300' : 'text-ink/45'
-                ]"
-                class="col-start-1 row-start-1 size-6 transition-opacity duration-300"
-                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
-                x-html="link.icon.inactive"></svg>
+        <!-- Passport -->
+        <a
+          href="{% url 'home:passport' %}"
+          aria-label="Passport"
+          @click="go(links[3], $event)"
+          class="nav-cell group relative z-10 flex h-12 flex-1 select-none items-center justify-center outline-none">
+          <span class="relative grid size-12 place-items-center transition-all duration-300">
+            <svg
+              :class="[activeLink === 3 ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100', 'text-ink/45']"
+              class="col-start-1 row-start-1 size-6 transition-opacity duration-300"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+              x-html="icon(3, false)"></svg>
+            <svg
+              :class="activeLink === 3 ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'"
+              class="col-start-1 row-start-1 size-6 text-forest-950 transition-opacity duration-300"
+              fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+              x-html="icon(3, true)"></svg>
+          </span>
+        </a>
 
-              <!-- Active (fill / solid) -->
-              <svg
-                :class="activeLink === index ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'"
-                class="col-start-1 row-start-1 size-6 text-forest-950 transition-opacity duration-300"
-                fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"
-                x-html="link.icon.active"></svg>
-            </span>
-          </a>
-        </template>
+        <!-- Profile -->
+        <a
+          href="{% url 'home:profile' %}"
+          aria-label="Profile"
+          @click="go(links[4], $event)"
+          class="nav-cell group relative z-10 flex h-12 flex-1 select-none items-center justify-center outline-none">
+          <span class="relative grid size-12 place-items-center transition-all duration-300">
+            <svg
+              :class="[activeLink === 4 ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100', 'text-ink/45']"
+              class="col-start-1 row-start-1 size-6 transition-opacity duration-300"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+              x-html="icon(4, false)"></svg>
+            <svg
+              :class="activeLink === 4 ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'"
+              class="col-start-1 row-start-1 size-6 text-forest-950 transition-opacity duration-300"
+              fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+              x-html="icon(4, true)"></svg>
+          </span>
+        </a>
       </div>
     </div>
   </nav>
 
   <!-- ============ Desktop: floating top header ============ -->
   <header
-    class="fixed left-1/2 top-4 z-50 hidden -translate-x-1/2 items-center gap-6 rounded-full border border-ink/15 bg-parchment-50/95 px-6 py-3 shadow-lg shadow-ink/10 backdrop-blur-xl md:flex"
+    class="fixed left-1/2 top-4 z-50 hidden -translate-x-1/2 items-center gap-6 rounded-full border border-ink/15 bg-parchment-50 px-6 py-3 shadow-lg shadow-ink/10 md:flex"
     aria-label="Primary navigation">
     <!-- Brand -->
     <a href="{% url 'home:index' %}" class="flex items-center gap-3">
@@ -85,30 +154,93 @@
 
     <!-- Center links -->
     <nav class="flex items-center gap-1" aria-label="Desktop navigation">
-      <template x-for="link in links.filter((l) => l.id !== 'register')" :key="link.id">
-        <a
-          :href="link.href"
-          @click="go(link, $event)"
-          class="group flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-300"
-          :class="activeId === link.id ? 'bg-forest-100 text-forest-900' : 'text-ink-soft hover:text-forest-800'">
-          <span class="relative grid size-4 place-items-center">
-            <!-- Inactive (stroke / outline) -->
-            <svg
-              :class="activeId === link.id ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100 group-hover:opacity-40'"
-              class="col-start-1 row-start-1 size-4 transition-opacity duration-300"
-              fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
-              x-html="link.icon.inactive"></svg>
-            <!-- Active (fill / solid) -->
-            <svg
-              :class="activeId === link.id ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'"
-              class="col-start-1 row-start-1 size-4 transition-opacity duration-300"
-              fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"
-              x-html="link.icon.active"></svg>
-          </span>
-          <span x-text="link.label"></span>
-        </a>
-      </template>
+      <!-- Home -->
+      <a
+        href="{% url 'home:index' %}"
+        @click="go(links[0], $event)"
+        class="group flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-300"
+        :class="activeId === 'home' ? 'bg-forest-100 text-forest-900' : 'text-ink-soft hover:text-forest-800'">
+        <span class="relative grid size-4 place-items-center">
+          <svg
+            :class="activeId === 'home' ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100 group-hover:opacity-40'"
+            class="col-start-1 row-start-1 size-4 transition-opacity duration-300"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+            x-html="icon(0, false)"></svg>
+          <svg
+            :class="activeId === 'home' ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'"
+            class="col-start-1 row-start-1 size-4 transition-opacity duration-300"
+            fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+            x-html="icon(0, true)"></svg>
+        </span>
+        <span>Home</span>
+      </a>
+
+      <!-- Map -->
+      <a
+        href="{% url 'home:map' %}"
+        @click="go(links[1], $event)"
+        class="group flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-300"
+        :class="activeId === 'map' ? 'bg-forest-100 text-forest-900' : 'text-ink-soft hover:text-forest-800'">
+        <span class="relative grid size-4 place-items-center">
+          <svg
+            :class="activeId === 'map' ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100 group-hover:opacity-40'"
+            class="col-start-1 row-start-1 size-4 transition-opacity duration-300"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+            x-html="icon(1, false)"></svg>
+          <svg
+            :class="activeId === 'map' ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'"
+            class="col-start-1 row-start-1 size-4 transition-opacity duration-300"
+            fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+            x-html="icon(1, true)"></svg>
+        </span>
+        <span>Map</span>
+      </a>
+
+      <!-- Passport -->
+      <a
+        href="{% url 'home:passport' %}"
+        @click="go(links[3], $event)"
+        class="group flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-300"
+        :class="activeId === 'passport' ? 'bg-forest-100 text-forest-900' : 'text-ink-soft hover:text-forest-800'">
+        <span class="relative grid size-4 place-items-center">
+          <svg
+            :class="activeId === 'passport' ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100 group-hover:opacity-40'"
+            class="col-start-1 row-start-1 size-4 transition-opacity duration-300"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+            x-html="icon(3, false)"></svg>
+          <svg
+            :class="activeId === 'passport' ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'"
+            class="col-start-1 row-start-1 size-4 transition-opacity duration-300"
+            fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+            x-html="icon(3, true)"></svg>
+        </span>
+        <span>Passport</span>
+      </a>
+
+      <!-- Profile -->
+      <a
+        href="{% url 'home:profile' %}"
+        @click="go(links[4], $event)"
+        class="group flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-300"
+        :class="activeId === 'profile' ? 'bg-forest-100 text-forest-900' : 'text-ink-soft hover:text-forest-800'">
+        <span class="relative grid size-4 place-items-center">
+          <svg
+            :class="activeId === 'profile' ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100 group-hover:opacity-40'"
+            class="col-start-1 row-start-1 size-4 transition-opacity duration-300"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+            x-html="icon(4, false)"></svg>
+          <svg
+            :class="activeId === 'profile' ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'"
+            class="col-start-1 row-start-1 size-4 transition-opacity duration-300"
+            fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+            x-html="icon(4, true)"></svg>
+        </span>
+        <span>Profile</span>
+      </a>
     </nav>
 
     <!-- Primary CTA -->
@@ -148,9 +280,6 @@ document.addEventListener('alpine:init', () => {
     }
   };
 
-  // Durata (ms) dell'animazione di selezione prima di navigare (coerente con duration-500).
-  const NAV_ANIMATION_MS = 500;
-
   Alpine.data('navbar', (config = {}) => ({
     activeLink: 0,
     offset: 64,
@@ -168,7 +297,13 @@ document.addEventListener('alpine:init', () => {
       const idx = this.links.findIndex((link) => link.id === this.initial);
       this.activeLink = idx >= 0 ? idx : 0;
 
-      this.$nextTick(() => this.measure());
+      // Le celle sono renderizzate lato server: misuriamo subito, così
+      // l'indicatore nasce già con la larghezza corretta (nessun "salto").
+      this.measure();
+
+      this.$nextTick(() => {
+        this.playEntranceSlide();
+      });
       window.addEventListener('resize', () => this.measure());
     },
 
@@ -176,21 +311,66 @@ document.addEventListener('alpine:init', () => {
       return this.links[this.activeLink] ? this.links[this.activeLink].id : 'home';
     },
 
+    // Restituisce il path SVG dell'icona (Heroicons) per la tab indicata.
+    // `active` = versione piena (solid), altrimenti outline.
+    icon(index, active) {
+      const link = this.links[index];
+      if (!link) return '';
+      return active ? link.icon.active : link.icon.inactive;
+    },
+
     go(link, event) {
       const idx = this.links.findIndex((l) => l.id === link.id);
       if (idx < 0) return;
       // Click modificati (Ctrl/Cmd/Shift/Alt, tasto centrale) -> comportamento nativo (nuova scheda)
       if (event && (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0)) return;
-      // Stessa pagina o prefers-reduced-motion -> navigazione immediata
-      if (idx === this.activeLink || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      if (event && event.preventDefault) event.preventDefault();
-      this.activeLink = idx; // avvia l'animazione di selezione
-      if (this._pendingNav) return; // evita doppi click
-      this._pendingNav = true;
-      window.setTimeout(() => {
-        this._pendingNav = false;
-        window.location.href = link.href; // naviga a fine animazione
-      }, NAV_ANIMATION_MS);
+      // Stessa tab: nessuna azione; l'anchor nativo resta il default.
+      if (idx === this.activeLink) return;
+      // Con motion ridotta non serve ricordare la provenienza (nessuno slide d'ingresso).
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      // Ricorda la tab di provenienza per lo slide d'ingresso sulla prossima pagina.
+      try {
+        sessionStorage.setItem('navbar-from', this.links[this.activeLink].id);
+      } catch (e) {
+        // sessionStorage non disponibile: si rinuncia allo slide, ma la
+        // navigazione nativa qui sotto continua a funzionare.
+      }
+      this.activeLink = idx; // feedback visivo immediato
+      // NIENTE preventDefault: la navigazione nativa dell'<a href> avviene subito
+      // ed è sempre affidabile (il vecchio setTimeout + location.href causava il
+      // bug "primo click senza navigazione, secondo click necessario").
+    },
+
+    // Slide d'ingresso: se l'utente arriva da un'altra tab (id salvato in
+    // sessionStorage da go()), l'indicatore parte da quella posizione e
+    // scivola verso la tab attiva riusando la transition-transform duration-500.
+    playEntranceSlide() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      let fromId = null;
+      try {
+        fromId = sessionStorage.getItem('navbar-from');
+        sessionStorage.removeItem('navbar-from');
+      } catch (e) {
+        return;
+      }
+      if (!fromId) return;
+      const fromIndex = this.links.findIndex((l) => l.id === fromId);
+      if (fromIndex < 0 || fromIndex === this.activeLink) return;
+
+      const indicator = this.$root.querySelector('.tab-indicator');
+      if (!indicator) return;
+
+      const fromX = this.offset * fromIndex;
+      const toX = this.offset * this.activeLink;
+
+      // Posiziona l'indicatore sulla tab di provenienza (senza transizione)...
+      indicator.style.transition = 'none';
+      indicator.style.transform = 'translateX(' + fromX + 'px)';
+      // ...forza un reflow così il punto di partenza viene "fissato"...
+      void indicator.getBoundingClientRect();
+      // ...e lascia che la transizione CSS porti l'indicatore alla tab attiva.
+      indicator.style.transition = '';
+      indicator.style.transform = 'translateX(' + toX + 'px)';
     },
 
     measure() {

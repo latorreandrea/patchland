@@ -20,6 +20,7 @@ The project is purely symbolic and recreational, with no legal, political, or te
 * [UX/UI](#-uxui--style-colors--interaction-guide)
 * [Tech Stack](#-tech-stack)
 * [License](#-license)
+* [Bug Log](#-bug-log)
 
 ---
 
@@ -280,3 +281,22 @@ follow it to keep the experience consistent.
 ## 📜 License
 
 Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+## 🐞 Bug Log
+
+Living log of known issues and their lifecycle. New bugs are added here as they
+are discovered; the status is updated when a fix lands.
+
+**Status legend:** 🔴 Active — bug still present · ✅ Fixed — resolved and verified.
+
+| ID | Status | Bug | Discovered | Fixed | How it was fixed |
+| --- | --- | --- | --- | --- | --- |
+| BUG-001 | ✅ Fixed | Fade-in (`reveal`) entrance animations stopped working on every page after the component was moved to a shared static file | 2026-08-27 | 2026-08-27 | `static/js/reveal.js` is now loaded **before** Alpine's CDN script in `templates/base.html` (`{% block corejs %}`, `defer` preserves order), so the `alpine:init` listener is registered before Alpine boots; `reveal.js` also registers immediately when `Alpine` is already present (defensive fallback). |
+| BUG-002 | ✅ Fixed | Mobile navbar: first click on a different tab only moved the indicator but didn't navigate — a second click was required | 2026-08-28 | 2026-08-28 | `go()` no longer calls `preventDefault()` nor navigates via `setTimeout`; it only updates the active tab and lets the anchor's **native** navigation happen. Removed the `_pendingNav` flag and `NAV_ANIMATION_MS`. The slide effect is preserved as an entrance animation from the previous tab (id kept in `sessionStorage['navbar-from']`). |
+| BUG-003 | 🔴 Active | Mobile navbar: the first click from home to another tab still doesn't navigate and the navbar appears **wider** on the first click | 2026-08-28 | — | Attempted fixes (not resolving yet): links are server-rendered with real `href` (`{% url %}`), `x-cloak` removed, `go()` uses native navigation (no `preventDefault`/`setTimeout`). Still under investigation — suspected: `backdrop-filter` compositing glitch on `position: fixed` (wider bar), first-tap hover consumption, tap/`touch-action` handling. |
+
+> When a new bug is found, add a row with status 🔴 **Active**, the discovery
+> date and a short description, then fill in the **Fixed** date and the
+> resolution once a fix is verified.
