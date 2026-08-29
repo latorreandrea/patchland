@@ -85,33 +85,76 @@ territorial claims. The nation grows one Patch at a time — no borders, just st
 
 ## UX
 
-> User-experience design documentation (user stories, strategy, scope, structure,
-> skeleton and surface). To be populated.
+- **Vision/Mission** from the concept: a distributed, symbolic nation built *one Patch at a time* — purely symbolic and recreational, with no claims.
+- **Positioning and community philosophy** — inspired by **"The Art of Community" by Jono Bacon**: communities work when there is shared purpose, participation and a sense of belonging; participation is the product, not a feature. Patchland is born from the desire to feel like *citizens of the world*: unlike certain micro-states created to **isolate** from a world in which people don't feel free, Patchland does not detach from humanity — freedom is not a border, but communities that work, shared places and mutual stories. "Community before territory" (key principle of the concept) becomes the strategic thesis.
 
 ### User Stories
 
-> To be populated: user stories for first-time visitors, citizens/custodians and
-> administrators.
+> To be populated...
 
 ### Strategy
 
-> To be populated.
+**Project goal:** creation of a distributed community built *one Patch at a time*.
+
+**Value proposition per persona:**
+
+| Persona | Value proposition |
+| --- | --- |
+| **Visitor** | Inspiration and belonging without commitment — explore the nation and decide whether to join. |
+| **Citizen** | Belonging, travel and the digital passport — connect with other citizens and collect stamps. |
+| **Custodian** | Contribution, expansion and hospitality — grow the nation and welcome visitors. |
+| **Administrator** | Governance and quality — validate, moderate and monitor the nation. |
 
 ### Scope
 
-> To be populated.
+**Functional:**
+
+- Patch registration: name, custodian, coordinates, area, foundation date, province, optional photos, short history.
+- Official seal: unique, numbered, personalised, permanently linked to a single Patch (National Archive).
+- Digital Passport: Patch stamps, commemorative events, visited provinces.
+- Tourism access levels: Public / Visit on request / Private.
+- Provinces: Patches grouped into Provinces across the globe.
+- Citizenship: anyone who registers at least one Patch becomes a citizen.
+- Symbolic titles by maintained area, contribution, seniority, community participation.
+- Collectibles: coins, stamps, seals, certificates, flags, coats of arms.
+- Community-maintained Constitution.
+- Public statistics: territory, Patches, citizens, Provinces, countries, seals, passports.
+- Interactive world map with real Patches and real coordinates.
+- Newsletter subscription.
+
+**Non-functional:**
+
+- Purely symbolic and recreational — no legal, political or territorial claims.
+- Accessibility: reduced-motion support, no-JS fallback, semantic HTML & ARIA.
+- Fully responsive: mobile tab bar, desktop pill header.
+- Resilient UI: server-rendered fallbacks for live counters.
+
+**Out of scope (v0.1):** real data models, authentication, physical stamps.
 
 ### Structure
 
-> To be populated.
+The information architecture follows the user journey Visitor → Citizen → Custodian:
+
+| Level | Pages / areas |
+| --- | --- |
+| Public (Visitor) | Home, Manifesto, World Map, Register (concept), newsletter |
+| Registered (Citizen) | Profile, digital Passport, contact with other citizens |
+| Custodian | Patch management, story & seal, hospitality, stamp release |
+| Administrator | Validation of Custodian requests, moderation, monitoring |
+
+Already implemented (v0.1): Home, Manifesto, World Map, Passport, Profile, Register — concept / static UI. Data flows land in v0.2.
 
 ### Skeleton
 
-> To be populated.
+- Every page opens with a dark forest hero (shared `partials/page-hero.html`) with entrance cascade and wave divider.
+- Sections follow an `eyebrow` + `section-title` header pattern over parchment cards.
+- Card grids: `md:grid-cols-2`, `md:grid-cols-3`, `lg:grid-cols-4`.
+- Scroll-triggered entrances via the shared `reveal` component.
+- Register flow: concept form — validation and submission in v0.2.
 
 ### Surface
 
-> To be populated.
+Fully specified in the [UX/UI — Style, Colors & Interaction Guide](#uxui--style-colors--interaction-guide): forest / parchment / brass / ink palette, Cormorant Garamond + Source Sans 3 typography, motion & accessibility rules.
 
 ---
 
