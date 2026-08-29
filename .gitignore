@@ -223,3 +223,6 @@ node_modules/
 # Django generated / user uploads
 media/
 staticfiles/
+
+#extra
+USER_STORIES.md
