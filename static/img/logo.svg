@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Patchland logo — Res Publica Mundi">
+  <!-- Compass-rose dashed ring -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="#d4af37" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 12"/>
+  <!-- Inner ring -->
+  <circle cx="100" cy="100" r="68" fill="none" stroke="#d4af37" stroke-width="2" opacity="0.55"/>
+  <!-- Cardinal points -->
+  <g stroke="#d4af37" stroke-width="4" stroke-linecap="round">
+    <line x1="100" y1="4" x2="100" y2="14"/>
+    <line x1="100" y1="186" x2="100" y2="196"/>
+    <line x1="4" y1="100" x2="14" y2="100"/>
+    <line x1="186" y1="100" x2="196" y2="100"/>
+  </g>
+  <!-- Monogram -->
+  <text x="100" y="138" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="100" font-weight="700" fill="#1c3d2b">P</text>
+</svg>

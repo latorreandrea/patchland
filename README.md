@@ -1,5 +1,9 @@
 # Patchland
 
+<p align="center">
+  <img src="static/img/logo.svg" alt="Patchland logo — Res Publica Mundi" width="150">
+</p>
+
 > Res Publica Mundi — A distributed, imaginary nation built one Patch at a time.
 
 Patchland is a collaborative world-building project where people voluntarily dedicate a small portion of a place they legitimately use (garden, yard, balcony, etc.) as a **Patch**.
@@ -8,23 +12,110 @@ The project is purely symbolic and recreational, with no legal, political, or te
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
-* [Objectives](#-objectives)
-* [Core Principles](#-core-principles)
-* [Requirements for a Patch](#-requirements-for-a-patch)
-* [The Custodian, Citizenship & Tourism](#-the-custodian-citizenship--tourism)
-* [World Map & Provinces](#-world-map--provinces)
-* [Collectibles & Symbols](#-collectibles--symbols)
-* [Slogans](#-slogans)
-* [UX/UI](#-uxui--style-colors--interaction-guide)
-* [Tech Stack](#-tech-stack)
-* [License](#-license)
-* [Bug Log](#-bug-log)
+- [Project Overview](#project-overview)
+- [UX](#ux)
+  - [User Stories](#user-stories)
+  - [Strategy](#strategy)
+  - [Scope](#scope)
+  - [Structure](#structure)
+  - [Skeleton](#skeleton)
+  - [Surface](#surface)
+- [Objectives](#objectives)
+- [Core Principles](#core-principles)
+- [Features & Roadmap](#features--roadmap)
+  - [Implemented Features](#implemented-features-v01)
+  - [Roadmap](#roadmap)
+- [Requirements for a Patch](#requirements-for-a-patch)
+- [The Custodian, Citizenship & Tourism](#the-custodian-citizenship--tourism)
+- [World Map & Provinces](#world-map--provinces)
+- [Collectibles & Symbols](#collectibles--symbols)
+- [Slogans](#slogans)
+- [UX/UI — Style, Colors & Interaction Guide](#uxui--style-colors--interaction-guide)
+  - [Colors](#colors)
+  - [Typography](#typography)
+  - [Layout](#layout)
+  - [Components](#components)
+  - [Motion & Effects](#motion--effects)
+  - [UX & Accessibility](#ux--accessibility)
+- [Architecture](#architecture)
+  - [System Overview](#system-overview)
+  - [Technology Stack](#technology-stack)
+  - [Data Flow](#data-flow)
+- [Setup & Installation](#setup--installation)
+- [Usage](#usage)
+- [API Reference](#api-reference)
+- [Developer Guide](#developer-guide)
+  - [Project layout](#project-layout)
+  - [Conventions](#conventions)
+  - [Useful commands](#useful-commands)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Security](#security)
+- [SEO](#seo)
+- [Integrations](#integrations)
+- [Troubleshooting](#troubleshooting)
+- [Credits](#credits)
+- [License](#license)
+- [Bug Log](#bug-log)
 
 ---
 
-## 🎯 Objectives
+## Project Overview
+
+**Patchland** ("Res Publica Mundi") is a collaborative world-building project in which
+people voluntarily dedicate a small portion of a place they legitimately use
+(garden, yard, balcony, …) as a **Patch** — a square meter of real, meaningful space
+that belongs to a shared, imaginary nation.
+
+| | |
+| --- | --- |
+| **Version** | v0.1 — Foundation (concept + UI/UX) |
+| **Status** | In development |
+| **Backend** | Python · Django · Django Ninja |
+| **Frontend** | Tailwind CSS · Alpine.js |
+| **Database** | SQLite (dev) · PostgreSQL (prod) |
+| **License** | MIT |
+
+The project is purely symbolic and recreational, with no legal, political or
+territorial claims. The nation grows one Patch at a time — no borders, just stories.
+
+---
+
+## UX
+
+> User-experience design documentation (user stories, strategy, scope, structure,
+> skeleton and surface). To be populated.
+
+### User Stories
+
+> To be populated: user stories for first-time visitors, citizens/custodians and
+> administrators.
+
+### Strategy
+
+> To be populated.
+
+### Scope
+
+> To be populated.
+
+### Structure
+
+> To be populated.
+
+### Skeleton
+
+> To be populated.
+
+### Surface
+
+> To be populated.
+
+---
+
+## Objectives
 
 * Build the world's largest distributed symbolic nation.
 * Connect people through meaningful places.
@@ -33,7 +124,7 @@ The project is purely symbolic and recreational, with no legal, political, or te
 
 ---
 
-## 🌟 Core Principles
+## Core Principles
 
 * **One Patch at a time.**
 * **Every Patch has a story.**
@@ -43,7 +134,64 @@ The project is purely symbolic and recreational, with no legal, political, or te
 
 ---
 
-## 📐 Requirements for a Patch
+## Features & Roadmap
+
+The development phases referenced across the project:
+
+- **v0.1 — Foundation (current):** concept, design system, UI pages and public API.
+- **v0.2 — Nation Data (planned):** data models and real nation features.
+- **v0.3+ — Future ideas:** advanced collectibles and community features.
+
+### Implemented Features (v0.1)
+
+**Landing & pages**
+
+- Landing page with asymmetric dark hero, entrance animations, live nation counters and featured Patch cards.
+- Manifesto, World Map, Passport, Profile and Register pages (concept / static UI).
+- Shared reusable hero partial (`partials/page-hero.html`) with entrance cascade + animated wave divider.
+
+**Navigation & motion**
+
+- Responsive navbar: floating mobile tab bar with animated indicator + desktop pill header.
+- Scroll-triggered entrance animations (`reveal` component, shared `static/js/reveal.js`).
+- Parallax background spheres, animated wave dividers, floating illustrations, live-status dots.
+
+**Design system**
+
+- Tailwind design tokens: forest / parchment / brass / ink palette, display + body typography.
+- Reusable components: buttons, cards, badges, icons (Heroicons), navigation, decorative layers.
+- Documented in the [UX/UI Style Guide](#uxui--style-colors--interaction-guide).
+
+**API & infrastructure**
+
+- Django Ninja API: `GET /api/home/stats` (simulated nation statistics via the service layer).
+- Interactive API docs at `/api/docs`, readiness probe at `/healthz`.
+- Shared project-level static assets (`static/`) with documented conventions.
+
+### Roadmap
+
+> Source: `Patchland_Concept_v0.1.md` ("Future Ideas") and the v0.2 references in the templates.
+
+| Feature | Status | Milestone |
+| --- | --- | --- |
+| Data models: Patch, Custodian, Province, Seal, Passport | 📌 Planned | v0.2 |
+| Real nation statistics aggregated from the database | 📌 Planned | v0.2 |
+| Interactive world map (real Patches, real coordinates) | 📌 Planned | v0.2 |
+| Citizen profiles & citizenship | 📌 Planned | v0.2 |
+| Patch registration form with submission handling | 📌 Planned | v0.2 |
+| Digital Passport with stamps & seals | 📌 Planned | v0.3+ |
+| Collectibles: coins, flags, coats of arms, certificates | 📌 Planned | v0.3+ |
+| Community-maintained Constitution | 📌 Planned | v0.3+ |
+| Missions & badges | 💡 Future idea | v0.3+ |
+| Historical archive & conservation levels | 💡 Future idea | v0.3+ |
+| Twin Patches & Annual Patch Day | 💡 Future idea | v0.3+ |
+| Leaderboards & community voting | 💡 Future idea | v0.3+ |
+| Symbolic titles by area / contribution / seniority | 💡 Future idea | v0.3+ |
+| Tourism access levels (Public / on request / Private) | 💡 Future idea | v0.3+ |
+
+---
+
+## Requirements for a Patch
 
 1. **Availability of the Space:** The Custodian must legitimately have access to the space (ownership, rental, permission, etc.).
 2. **Minimum Size:** Minimum area of **1 square meter (1 m²)**.
@@ -55,7 +203,7 @@ The project is purely symbolic and recreational, with no legal, political, or te
 
 ---
 
-## 🏛️ The Custodian, Citizenship & Tourism
+## The Custodian, Citizenship & Tourism
 
 * **The Custodian:** Responsible for maintaining information, preserving the seal, and welcoming visitors when possible.
 * **Citizenship:** Anyone who registers at least one Patch becomes a citizen. Symbolic titles may depend on maintained area, contribution, seniority, or community participation.
@@ -67,7 +215,7 @@ The project is purely symbolic and recreational, with no legal, political, or te
 
 ---
 
-## 🗺️ World Map & Provinces
+## World Map & Provinces
 
 Patches are grouped into **Provinces** across the globe. The interactive world map displays:
 
@@ -77,7 +225,7 @@ Patches are grouped into **Provinces** across the globe. The interactive world m
 
 ---
 
-## 🏅 Collectibles & Symbols
+## Collectibles & Symbols
 
 * Passport & Digital Stamps
 * Official Seals & Certificates
@@ -86,7 +234,7 @@ Patches are grouped into **Provinces** across the globe. The interactive world m
 
 ---
 
-## 💬 Slogans
+## Slogans
 
 * *One Patch. One Citizen. One World.*
 * *Building the World's Largest Distributed Nation.*
@@ -96,7 +244,7 @@ Patches are grouped into **Provinces** across the globe. The interactive world m
 
 ---
 
-## 🎨 UX/UI — Style, Colors & Interaction Guide
+## UX/UI — Style, Colors & Interaction Guide
 
 Every page and app in this project shares a single visual language: a warm
 "paper & brass" aesthetic over deep forest green, with subtle, purposeful motion.
@@ -270,32 +418,215 @@ follow it to keep the experience consistent.
 
 ---
 
-## 🛠️ Tech Stack
+## Architecture
 
-* **Backend:** Python / Django
-* **API Framework:** Django Ninja
-* **Frontend:** Tailwind CSS
+### System Overview
+
+```
+Browser (Tailwind + Alpine.js)
+        │
+        ▼
+Django app `home`
+ ├── views.py        → server-rendered pages (templates/)
+ ├── api.py          → Django Ninja REST endpoints (/api/)
+ └── services.py     → domain logic (nation statistics)
+        │
+        ▼
+Database (SQLite in development / PostgreSQL in production)
+```
+
+### Technology Stack
+
+| Layer | Technology |
+| --- | --- |
+| Backend | Python · Django 5.x |
+| API framework | Django Ninja |
+| Frontend | Tailwind CSS 3.4 (custom design tokens) |
+| Interactivity | Alpine.js 3 (CDN) |
+| Fonts | Cormorant Garamond (display) · Source Sans 3 (body) |
+| Database | SQLite (development) · PostgreSQL (production) |
+| Static assets | Project-level `static/` (compiled CSS, shared JS) |
+
+### Data Flow
+
+- Pages are server-rendered by `home/views.py` from templates in `templates/` and
+  `home/templates/`.
+- Live counters call the Django Ninja endpoint `GET /api/home/stats`, refreshed
+  client-side by `home/static/home/js/stats.js` (server-rendered values remain as a
+  graceful fallback).
+- Domain logic lives in `home/services.py`; in v0.1 the statistics are simulated and
+  will be replaced by ORM aggregations in v0.2.
 
 ---
 
-## 📜 License
+## Setup & Installation
+
+```bash
+# 1. Clone the repository
+git clone <repo-url> patchland && cd patchland
+
+# 2. Create and activate a virtual environment
+python -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+npm install                     # Tailwind CSS CLI
+
+# 4. Configure the environment (.env — see patchland/settings.py)
+#    DEBUG=True, SECRET_KEY=..., DATABASE_URL empty → SQLite for local dev
+set -a && source .env && set +a
+
+# 5. Migrate and run the dev server
+python manage.py migrate
+python manage.py runserver
+
+# 6. (Optional) Rebuild Tailwind CSS
+npm run tailwind:build
+```
+
+> The project deliberately avoids dot-env libraries: environment variables are loaded
+> in the terminal from `.env` (see the header of `patchland/settings.py`).
+
+---
+
+## Usage
+
+| Page | Route | Description |
+| --- | --- | --- |
+| Home | `/` | Landing with hero, live counters, featured Patches and statistics. |
+| Manifesto | `/manifesto/` | Vision, principles, objectives, constitution and slogans. |
+| World Map | `/map/` | Placeholder for the interactive map (v0.2). |
+| Passport | `/passport/` | Passport & seals concept (stamps, events, provinces). |
+| Profile | `/profile/` | Placeholder for citizen profiles (v0.2). |
+| Register | `/register/` | Concept form to found a Patch (submission in v0.2). |
+| API docs | `/api/docs` | Interactive Django Ninja documentation. |
+| Health | `/healthz` | Readiness probe. |
+
+> Fully responsive: a floating bottom tab bar on mobile and a floating pill header
+> on desktop.
+
+---
+
+## API Reference
+
+All endpoints live under `/api/` (Django Ninja); interactive docs at `/api/docs`.
+
+| Endpoint | Method | Description |
+| --- | --- | --- |
+| `/api/home/stats` | GET | Aggregated nation statistics (total area, Patches, custodians, provinces, countries, seals, passports). |
+| `/healthz` | GET | Service readiness probe. |
+
+---
+
+## Developer Guide
+
+### Project layout
+
+```
+patchland/            # project settings
+home/                 # main app (pages, api, services)
+  api.py              # Django Ninja router
+  services.py         # domain logic (nation statistics)
+  templates/home/     # app templates
+  static/home/js/     # app-specific JS (e.g. stats.js)
+  templatetags/       # custom template filters
+templates/            # project-level templates (base, partials)
+  partials/           # navbar, footer, page-hero, icon, divider, spheres …
+static/               # project-level static assets
+  css/tailwind.css    # compiled Tailwind
+  js/reveal.js        # shared reveal component
+  src/input.css       # Tailwind source (design tokens & components)
+```
+
+### Conventions
+
+- Every new page extends `templates/base.html` and reuses `partials/page-hero.html`
+  for the hero (entrance cascade + wave divider built-in).
+- Use the shared `reveal` component (`x-data="reveal('from-bottom', { stagger: true })"`)
+  for scroll-triggered entrances — see `static/js/reveal.js`.
+- Add every new bug to the [Bug Log](#bug-log) (status, discovery date, fix date, resolution).
+- Keep the [UX/UI Style Guide](#uxui--style-colors--interaction-guide) updated when
+  design tokens or components change.
+- Shared assets live in `static/`; app-specific assets in `<app>/static/<app>/`.
+
+### Useful commands
+
+```bash
+python manage.py check          # sanity check
+python manage.py runserver      # dev server
+npm run tailwind:watch          # rebuild CSS on change
+npm run tailwind:build          # minified CSS build
+```
+
+---
+
+## Testing
+
+> To be populated: test plan, automated suites and manual test results.
+
+---
+
+## Deployment
+
+> To be populated: hosting, environment variables, `collectstatic`, CI/CD.
+>
+> Current requirements (see `patchland/settings.py`): with `DEBUG=False` the project
+> requires `DATABASE_URL` (PostgreSQL) and `ALLOWED_HOSTS`.
+
+---
+
+## Security
+
+> To be populated: secrets management, HTTPS, production hardening notes.
+
+---
+
+## SEO
+
+> To be populated: `sitemap.xml`, `robots.txt`, Open Graph / Twitter Card metadata,
+> accessibility and performance notes.
+
+---
+
+## Integrations
+
+> To be populated: external services (maps, mail, payments, …).
+
+---
+
+## Troubleshooting
+
+> To be populated: common issues and their fixes.
+
+---
+
+## Credits
+
+> To be populated: illustrations (Storyset "World", credited in the footer), icon
+> sets, fonts and tools.
+
+---
+
+## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-## 🐞 Bug Log
+## Bug Log
 
 Living log of known issues and their lifecycle. New bugs are added here as they
 are discovered; the status is updated when a fix lands.
 
-**Status legend:** 🔴 Active — bug still present · ✅ Fixed — resolved and verified.
+**Status legend:** 🔴 Active — bug still present · 🔶 Known — documented, non-blocking (to be fixed later) · ✅ Fixed — resolved and verified.
 
 | ID | Status | Bug | Discovered | Fixed | How it was fixed |
 | --- | --- | --- | --- | --- | --- |
 | BUG-001 | ✅ Fixed | Fade-in (`reveal`) entrance animations stopped working on every page after the component was moved to a shared static file | 2026-08-27 | 2026-08-27 | `static/js/reveal.js` is now loaded **before** Alpine's CDN script in `templates/base.html` (`{% block corejs %}`, `defer` preserves order), so the `alpine:init` listener is registered before Alpine boots; `reveal.js` also registers immediately when `Alpine` is already present (defensive fallback). |
 | BUG-002 | ✅ Fixed | Mobile navbar: first click on a different tab only moved the indicator but didn't navigate — a second click was required | 2026-08-28 | 2026-08-28 | `go()` no longer calls `preventDefault()` nor navigates via `setTimeout`; it only updates the active tab and lets the anchor's **native** navigation happen. Removed the `_pendingNav` flag and `NAV_ANIMATION_MS`. The slide effect is preserved as an entrance animation from the previous tab (id kept in `sessionStorage['navbar-from']`). |
-| BUG-003 | 🔴 Active | Mobile navbar: the first click from home to another tab still doesn't navigate and the navbar appears **wider** on the first click | 2026-08-28 | — | Attempted fixes (not resolving yet): links are server-rendered with real `href` (`{% url %}`), `x-cloak` removed, `go()` uses native navigation (no `preventDefault`/`setTimeout`). Still under investigation — suspected: `backdrop-filter` compositing glitch on `position: fixed` (wider bar), first-tap hover consumption, tap/`touch-action` handling. |
+| BUG-003 | ✅ Fixed | Mobile navbar: the first click from home to another tab didn't navigate and the navbar appeared **wider** on the first click | 2026-08-28 | 2026-08-28 | Removed `backdrop-blur-xl` from the navbar (solid `bg-parchment-50`), added `touch-manipulation` and removed the mobile-only hover effects (`group-hover:opacity-40`). The first click now navigates reliably. A residual cosmetic shift during navigation is tracked in BUG-004. |
+| BUG-004 | 🔶 Known | Mobile navbar: brief downward shift while navigating from home to other pages (browser URL-bar / dynamic viewport artifact) | 2026-08-28 | — | Accepted as a known, non-blocking browser artifact (verified: the nav container and inner elements are computed-identical across pages). Attempted `interactive-widget=overlays-content` in the viewport meta and a `visualViewport` pin — neither resolved it on the test device. To be revisited. |
 
 > When a new bug is found, add a row with status 🔴 **Active**, the discovery
 > date and a short description, then fill in the **Fixed** date and the
